@@ -1,17 +1,16 @@
 <script setup lang="ts">
 
 import {computed, ref} from "vue";
-import {CuttingSequence} from "~/components/types";
+import {CuttingSequence, MaterialState} from "~/components/types";
 
 const props = defineProps<{
-  name: string
-  totalLength: number,
-  assignedSequence: CuttingSequence | null
+  materialState: MaterialState,
 }>();
 
 const PX_PER_LENGTH = 6
 
-function cs2Marks(cs: CuttingSequence): Record<number, string> {
+function cs2Marks(ms: MaterialState): Record<number, string> {
+  const cs = ms.assignedSequence
    /*Example of cs:
     [
       { leftEnd: 0, rightEnd: 1, length: 10 },
@@ -28,7 +27,7 @@ function cs2Marks(cs: CuttingSequence): Record<number, string> {
   const marks: Record<number, string> = {}
 
   // Push the first shape
-  marks[0] = cs[0].leftEnd.toString()
+  marks[0] = ms.leftMostEnd.toString()
 
   let curLength = 0
   for ( const idx in cs) {
@@ -43,18 +42,9 @@ function cs2Marks(cs: CuttingSequence): Record<number, string> {
 
 }
 
-const assignedMaxLength = computed(() => {
-  if (!props.assignedSequence) return 0
-  return props.assignedSequence.reduce((acc: number, cur: CuttingSequence[0]) => acc + cur.length, 0)
-})
-
-const remainingLength = computed(() => {
-  return props.totalLength - assignedMaxLength.value
-})
-
 // const value = ref()
 const marks = ref(
-    cs2Marks(props.assignedSequence ?? [])
+    cs2Marks(props.materialState)
     // {
     //   0: '0°C',
     //   8: '8°C',
@@ -71,15 +61,19 @@ const marks = ref(
 </script>
 
 <template>
+
+  <el-row type="flex" class="row-bg">
+    {{ materialState.id }} (length=={{ materialState.material.length }}, remaining: {{ materialState.remainingLength }})
+  </el-row>
+
   <div class="block" :style="{
-    width: PX_PER_LENGTH * totalLength + 'px'
+    width: PX_PER_LENGTH * materialState.material.length + 'px'
   }">
-    {{ name }} (length=={{ totalLength }}, remaining: {{ remainingLength }})
     <el-slider
-        v-model="assignedMaxLength"
+        v-model="materialState.assignedLength"
         :show-input-controls="false"
         :marks="marks"
-        :max="totalLength"
+        :max="materialState.material.length"
     ></el-slider>
   </div>
 </template>

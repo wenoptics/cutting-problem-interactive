@@ -3,72 +3,76 @@
 import {ref} from "vue";
 import Material from "~/components/Material.vue";
 import TargetPool from "~/components/TargetPool.vue";
-import {CuttingSequence, MaterialShape, TargetShape, TargetShapePool} from "~/components/types";
+import {MaterialShape, MaterialState, TargetShape, TargetShapePool} from "~/components/types";
 
 import prefillMaterials from "./prefill_data/material.json";
 import prefillCuttingTargets from "./prefill_data/cutting-targets.json";
 
 // Prepare data - material
-const prefillMaterialsList: MaterialShape[] = Object.entries(prefillMaterials).map(([id, data]) => ({ id, length: data.length as unknown as number }))
-console.debug('prefillMaterials', prefillMaterials, prefillMaterialsList)
+const prefillMaterialsList: MaterialShape[] = Object.entries(prefillMaterials).map(([id, data]) => ({
+  id,
+  length: data.length as unknown as number,
+  leftEnd: data.leftEnd ?? 0,
+  rightEnd: data.rightEnd ?? 0,
+}))
+const prefillMaterialsPool: Record<string, MaterialShape> = Object.fromEntries(
+    prefillMaterialsList.map((material) => [material.id, material])
+)
+console.debug('prefillMaterials', prefillMaterials, prefillMaterialsPool)
 
 // Prepare data - cutting targets
 type JSON_CuttingTarget = {
   ID: string
   End1: 0 | 1 | 2 | 3 | 4
   End2: 0 | 1 | 2 | 3 | 4
-  Length: number
+  Length: number | "" | undefined
 }
 const prefillCuttingTargetsPool: TargetShapePool = Object.fromEntries(
-    (prefillCuttingTargets as JSON_CuttingTarget[]).map((target) => {
-      const { ID, End1, End2, Length } = target
-      const leftEnd = End1
-      const rightEnd = End2
-      const length = Length
-      const shape: TargetShape = { id: ID, leftEnd, rightEnd, length }
-      return [ID, shape]
-    })
+    (prefillCuttingTargets as JSON_CuttingTarget[])
+        .filter(target => typeof target.Length === 'number')
+        .map(target => {
+          const {ID, End1, End2, Length} = target
+          const shape = new TargetShape(ID, End1, End2, Length)
+          return [ID, shape]
+        })
 )
 console.debug('prefillCuttingTargets', prefillCuttingTargets, prefillCuttingTargetsPool)
 
-const sticks = ref<MaterialShape[]>(prefillMaterialsList);
-
-type MaterialState = {
-  id: string
-  assignedSequence: CuttingSequence
-}
+// const sticks = ref<MaterialShape[]>(prefillMaterialsList);
 
 // Temporary data
 const currentSolutions = ref<Record<string, MaterialState>>({
-  A1: {
-    id: 'A1',
-    assignedSequence: [
-      { leftEnd: 0, rightEnd: 1, length: 10 },
-      { leftEnd: 2, rightEnd: 3, length: 12 },
-    ]
-  },
-  A2: {
-    id: 'A2',
-    assignedSequence: [
-      { leftEnd: 0, rightEnd: 1, length: 10 },
-      { leftEnd: 2, rightEnd: 3, length: 12 },
-    ]
-  }
+  A1: new MaterialState(prefillMaterialsPool['A1']),
+  A2: new MaterialState(prefillMaterialsPool['A2']),
 });
 
 </script>
 
 <template>
-  <div v-for="stick in sticks" :key="stick" py="2">
+  <div v-for="(ms, materialId) in currentSolutions" :key="materialId" py="2">
 
-    <Material
-        :name="stick.id"
-        :total-length="stick.length"
-        :assigned-sequence="currentSolutions[stick.id].assignedSequence"
-    />
+    <Material :material-state="ms"/>
     <el-collapse>
       <el-collapse-item title="Choose" name="1">
-        <TargetPool :data="prefillCuttingTargetsPool" :used="[]"/>
+
+        <el-row type="flex" class="row-bg">
+          Constrain conditions:
+        </el-row>
+        <el-row type="flex" class="row-bg bg-warning">
+          Target length &lt= remaining length ({{ ms.remainingLength }})
+        </el-row>
+        <el-row type="flex" class="row-bg bg-warning">
+          Left End: []
+        </el-row>
+
+        <el-divider></el-divider>
+
+        <TargetPool
+            :data="prefillCuttingTargetsPool"
+            :used="[]"
+            :max-length="ms.remainingLength"
+            :allowed-left-ends="[0,4]"
+        />
       </el-collapse-item>
     </el-collapse>
   </div>
