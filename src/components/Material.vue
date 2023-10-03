@@ -7,7 +7,20 @@ const props = defineProps<{
   materialState: MaterialState,
 }>();
 
-const PX_PER_LENGTH = 6
+const MAX_LENGTH = 130
+const px_per_length = ref(6)
+
+function handleViewPortSizeChanged() {
+  const windowWidth = window.innerWidth
+  px_per_length.value = Math.min(
+      Math.floor(windowWidth / MAX_LENGTH),
+      6
+  )
+  console.debug('handleViewPortSizeChanged', windowWidth, px_per_length.value)
+}
+
+// window.onresize = handleViewPortSizeChanged
+handleViewPortSizeChanged()
 
 function cs2Marks(ms: MaterialState): Record<number, string> {
   const cs = ms.assignedSequence
@@ -66,7 +79,7 @@ const marks = computed(() => cs2Marks(props.materialState)
   </el-row>
 
   <div class="block" :style="{
-    width: PX_PER_LENGTH * materialState.material.length + 'px'
+    width: px_per_length * materialState.material.length + 'px'
   }">
     <el-slider
         v-model="materialState.assignedLength"

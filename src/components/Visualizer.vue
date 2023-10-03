@@ -84,6 +84,28 @@ function handleRemoveLast (materialId: string) {
   <div v-for="(ms, materialId) in currentSolutions" :key="materialId" py="2">
 
     <Material :material-state="ms"/>
+
+    <el-row pt="8" align="middle">
+      <el-tag
+          size="small"
+          v-for="(c, idx) in ms.assignedSequence"
+          :key="c.id"
+      >
+        {{ c.leftEnd }}
+        <el-divider direction="vertical"></el-divider>
+        {{ c.id }} ({{ c.length }})
+        <el-divider direction="vertical"></el-divider>
+        {{ c.rightEnd }}
+      </el-tag>
+
+      <el-button
+          v-if="ms.assignedSequence.length !== 0"
+          type="warning"
+          @click="handleRemoveLast(materialId)"
+          size="small"
+      >Remove last</el-button>
+    </el-row>
+
     <el-collapse>
       <el-collapse-item title="Edit" name="1">
 
@@ -109,14 +131,6 @@ function handleRemoveLast (materialId: string) {
                 @select="handleAddTo(materialId, $event)"
             />
 
-            <el-row pt="4">
-              <el-button
-                  type="warning"
-                  @click="handleRemoveLast(materialId)"
-                  :disabled="ms.assignedSequence.length === 0"
-                  size="small"
-              >Remove last</el-button>
-            </el-row>
           </div>
         </el-card>
 
