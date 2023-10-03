@@ -2,6 +2,12 @@
 
 A interactive UI the simulation mitter cutting on baseboard
 
+<details><summary>DEMO</summary>
+
+![](./doc/msedge_IltBdsGrX5.gif)
+
+</details>
+
 ## Project setup
 
 ```bash
@@ -19,16 +25,3 @@ npm run dev
 ```bash
 npm run build
 ```
-
-## Usage
-
-```bash
-git clone https://github.com/element-plus/element-plus-vite-starter
-cd element-plus-vite-starter
-npm i
-npm run dev
-```
-
-### Custom theme
-
-See `src/styles/element/index.scss`.
