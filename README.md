@@ -1,6 +1,6 @@
 # Baseboard Cutting Problem Interactive
 
-A interactive UI the simulation mitter cutting on baseboard
+A interactive UI the simulation miter cutting on baseboard. [Live](https://cutting-problem-interactive.wenop.app/)
 
 <details><summary>DEMO</summary>
 
