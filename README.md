@@ -1,14 +1,6 @@
-# element-plus-vite-starter
+# Baseboard Cutting Problem Interactive
 
-> A starter kit for Element Plus with Vite
-
-- Preview: <https://vite-starter.element-plus.org>
-
-This is an example of on-demand element-plus with [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components).
-
-> If you want to import all, it may be so simple that no examples are needed. Just follow [quickstart | Docs](https://element-plus.org/zh-CN/guide/quickstart.html) and import them.
-
-If you just want an on-demand import example `manually`, you can check [unplugin-element-plus/examples/vite](https://github.com/element-plus/unplugin-element-plus/tree/main/examples/vite).
+A interactive UI the simulation mitter cutting on baseboard
 
 ## Project setup
 
