@@ -27,7 +27,7 @@ function cs2Marks(ms: MaterialState): Record<number, string> {
   const marks: Record<number, string> = {}
 
   // Push the first shape
-  marks[0] = ms.leftMostEnd.toString()
+  marks[0] = ms.nextAllowedLeftEnd.toString()
 
   let curLength = 0
   for ( const idx in cs) {
@@ -43,8 +43,7 @@ function cs2Marks(ms: MaterialState): Record<number, string> {
 }
 
 // const value = ref()
-const marks = ref(
-    cs2Marks(props.materialState)
+const marks = computed(() => cs2Marks(props.materialState)
     // {
     //   0: '0°C',
     //   8: '8°C',

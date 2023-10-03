@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 import {TargetShape, TargetShapePool} from "~/components/types";
 
@@ -12,9 +12,11 @@ const props = defineProps<{
   filterFn?: ((shape: TargetShape) => boolean)
 }>()
 
+const emit = defineEmits(['select'])
+
 function getColor(shape: TargetShape) {
   if (props.used.includes(shape.id)) {
-    return 'danger'
+    return 'info'
   }
   if (props.maxLength && shape.length > props.maxLength) {
     return 'warning'
@@ -36,13 +38,35 @@ function getDisabled(shape: TargetShape) {
 }
 
 function getTooltip(shape: TargetShape) {
+  const messages = []
+  if (props.used.includes(shape.id)) {
+    messages.push('Already used')
+  }
   if (props.maxLength && shape.length > props.maxLength) {
-    return `Length ${shape.length} exceeds max length ${props.maxLength}`
+    messages.push(`Length ${shape.length} exceeds max length ${props.maxLength}`)
   }
   if (props.allowedLeftEnds && !props.allowedLeftEnds.includes(shape.leftEnd)) {
-    return `Left end ${shape.leftEnd} not allowed`
+    messages.push(`Left end ${shape.leftEnd} not allowed`)
   }
-  return ''
+  return messages.join(';\n')
+}
+
+const numAvailable = computed(() => {
+  let count = 0
+  for (const shape of Object.values(props.data)) {
+    if (props.filterFn && !props.filterFn(shape)) {
+      continue
+    }
+    if (getDisabled(shape)) {
+      continue
+    }
+    count++
+  }
+  return count
+})
+
+function handleSelect (shape: TargetShape) {
+  emit('select', shape)
 }
 
 </script>
@@ -50,22 +74,29 @@ function getTooltip(shape: TargetShape) {
 <template>
 
   <el-row>
-    <el-button
-      size="small"
-      v-for="shape in Object.values(props.data)"
-      :key="shape.id"
-      v-if="filterFn ? filterFn(shape) : true"
-      :disabled="getDisabled(shape)"
-      :type="getColor(shape)"
-      :title="getTooltip(shape)"
-      plain
-    >
-      <span>{{ shape.leftEnd }}</span>
-      <el-divider direction="vertical"></el-divider>
-      {{ shape.id }} ({{ shape.length }})
-      <el-divider direction="vertical"></el-divider>
-      <span>{{ shape.rightEnd }}</span>
-    </el-button>
+    Available ({{ numAvailable }})
+  </el-row>
+
+  <el-row gutter="2" type="flex" justify="start">
+    <el-col><div class="grid-content">
+      <el-button
+          size="small"
+          v-for="shape in Object.values(props.data)"
+          :key="shape.id"
+          v-if="filterFn ? filterFn(shape) : true"
+          :disabled="getDisabled(shape)"
+          :type="getColor(shape)"
+          :title="getTooltip(shape)"
+          plain
+          @click="handleSelect(shape)"
+      >
+        <span>{{ shape.leftEnd }}</span>
+        <el-divider direction="vertical"></el-divider>
+        {{ shape.id }} ({{ shape.length }})
+        <el-divider direction="vertical"></el-divider>
+        <span>{{ shape.rightEnd }}</span>
+      </el-button>
+    </div></el-col>
   </el-row>
 
 </template>
