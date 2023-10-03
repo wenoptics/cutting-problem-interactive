@@ -9,7 +9,7 @@ const props = defineProps<{
   used: string[],
   maxLength?: number,
   allowedLeftEnds?: number[],
-  filterFn?: ((shape: TargetShape) => boolean)
+  // filterFn?: (shape: TargetShape) => boolean
 }>()
 
 const emit = defineEmits(['select'])
@@ -54,9 +54,9 @@ function getTooltip(shape: TargetShape) {
 const numAvailable = computed(() => {
   let count = 0
   for (const shape of Object.values(props.data)) {
-    if (props.filterFn && !props.filterFn(shape)) {
-      continue
-    }
+    // if (props.filterFn && !props.filterFn(shape)) {
+    //   continue
+    // }
     if (getDisabled(shape)) {
       continue
     }
@@ -83,7 +83,6 @@ function handleSelect (shape: TargetShape) {
           size="small"
           v-for="shape in Object.values(props.data)"
           :key="shape.id"
-          v-if="filterFn ? filterFn(shape) : true"
           :disabled="getDisabled(shape)"
           :type="getColor(shape)"
           :title="getTooltip(shape)"

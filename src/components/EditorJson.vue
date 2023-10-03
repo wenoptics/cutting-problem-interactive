@@ -4,6 +4,8 @@ import {ref} from "vue";
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
 const elEditorRoot = ref<HTMLElement>()
+
+// @ts-ignore
 monaco.create(elEditorRoot.value, {
   value: 'console.log("Hello, world!")',
   language: 'javascript'
