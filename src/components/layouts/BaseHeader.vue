@@ -18,7 +18,6 @@ import { toggleDark } from "~/composables";
 <!--      </el-sub-menu>-->
 <!--    </el-sub-menu>-->
 <!--    <el-menu-item index="3" disabled>Info</el-menu-item>-->
-<!--    <el-menu-item index="4">Orders</el-menu-item>-->
     <el-menu-item h="full" @click="toggleDark()">
       <button
         class="border-none w-full bg-transparent cursor-pointer"

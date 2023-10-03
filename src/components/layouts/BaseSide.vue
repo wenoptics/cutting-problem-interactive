@@ -24,19 +24,27 @@
 <!--        <el-menu-item index="1-4-1">item one</el-menu-item>-->
 <!--      </el-sub-menu>-->
 <!--    </el-sub-menu>-->
-<!--    <el-menu-item index="2">-->
-<!--      <el-icon><icon-menu /></el-icon>-->
-<!--      <template #title>Navigator Two</template>-->
-<!--    </el-menu-item>-->
-<!--    <el-menu-item index="3" disabled>-->
-<!--      <el-icon><document /></el-icon>-->
-<!--      <template #title>Navigator Three</template>-->
-<!--    </el-menu-item>-->
-    <el-menu-item index="4">
+    <el-menu-item index="4" @click="showEditorMaterial = true">
       <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
+      <template #title>Material Editor</template>
     </el-menu-item>
+
+    <el-menu-item index="3" @click="handleExport">
+      <el-icon><document /></el-icon>
+      <template #title>Export</template>
+    </el-menu-item>
+
   </el-menu>
+  <el-dialog
+      title="Tips"
+      :visible.sync="showEditorMaterial"
+      width="30%">
+    <span>This is a message</span>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="showEditorMaterial = false">Cancel</el-button>
+    <el-button type="primary" @click="showEditorMaterial = false">Confirm</el-button>
+  </span>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -55,4 +63,10 @@ const handleOpen = (key: string, keyPath: string[]) => {
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
+
+const showEditorMaterial = ref(false);
+
+function handleExport() {
+  console.debug("handleExport")
+}
 </script>

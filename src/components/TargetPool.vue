@@ -77,7 +77,7 @@ function handleSelect (shape: TargetShape) {
     Available ({{ numAvailable }})
   </el-row>
 
-  <el-row gutter="2" type="flex" justify="start">
+  <el-row :gutter="2" type="flex" justify="start">
     <el-col><div class="grid-content">
       <el-button
           size="small"

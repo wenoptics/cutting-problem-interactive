@@ -44,6 +44,8 @@ console.debug('prefillCuttingTargets', prefillCuttingTargets, prefillCuttingTarg
 const currentSolutions = ref<Record<string, MaterialState>>({
   A1: new MaterialState(prefillMaterialsPool['A1']),
   A2: new MaterialState(prefillMaterialsPool['A2']),
+  A3: new MaterialState(prefillMaterialsPool['A3']),
+  A4: new MaterialState(prefillMaterialsPool['A4']),
 });
 
 const usedCuttingTargets = computed<string[]>(() => {

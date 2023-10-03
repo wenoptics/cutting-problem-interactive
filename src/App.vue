@@ -2,7 +2,7 @@
   <el-config-provider namespace="ep">
     <BaseHeader />
     <div class="flex main-container">
-      <BaseSide />
+<!--      <BaseSide />-->
       <div w="full" py="4" pl="6">
 <!--        <Logos my="4" />-->
         <Visualizer></Visualizer>
