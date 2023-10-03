@@ -1,0 +1,274 @@
+[
+  {
+    "ID": "H2",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 4.25,
+    "Adjustment": "",
+    "Length": 4.25
+  },
+  {
+    "ID": "L7",
+    "End1": 3,
+    "End2": 4,
+    "Length Raw": 5.25,
+    "Adjustment": "",
+    "Length": 5.25
+  },
+  {
+    "ID": "F5",
+    "End1": 1,
+    "End2": 2,
+    "Length Raw": 6.5,
+    "Adjustment": "",
+    "Length": 6.5
+  },
+  {
+    "ID": "D4",
+    "End1": 2,
+    "End2": 3,
+    "Length Raw": 6.75,
+    "Adjustment": 1,
+    "Length": 6.875
+  },
+  {
+    "ID": "H3",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 7,
+    "Adjustment": -1,
+    "Length": 6.875
+  },
+  {
+    "ID": "L2",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 7.5,
+    "Adjustment": "",
+    "Length": 7.5
+  },
+  {
+    "ID": "F8",
+    "End1": 0,
+    "End2": 1,
+    "Length Raw": 8.75,
+    "Adjustment": "",
+    "Length": 8.75
+  },
+  {
+    "ID": "L6",
+    "End1": 0,
+    "End2": 2,
+    "Length Raw": 11.5,
+    "Adjustment": "",
+    "Length": 11.5
+  },
+  {
+    "ID": "D3",
+    "End1": 0,
+    "End2": 2,
+    "Length Raw": 19.75,
+    "Adjustment": 1,
+    "Length": 19.875
+  },
+  {
+    "ID": "H1",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 22.25,
+    "Adjustment": "",
+    "Length": 22.25
+  },
+  {
+    "ID": "L5",
+    "End1": 1,
+    "End2": 0,
+    "Length Raw": 22.5,
+    "Adjustment": "",
+    "Length": 22.5
+  },
+  {
+    "ID": "H5",
+    "End1": 0,
+    "End2": 3,
+    "Length Raw": 25,
+    "Adjustment": 1,
+    "Length": 25.125
+  },
+  {
+    "ID": "D7",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 25.25,
+    "Adjustment": -1,
+    "Length": 25.125
+  },
+  {
+    "ID": "F1",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 26,
+    "Adjustment": -1,
+    "Length": 25.875
+  },
+  {
+    "ID": "L3",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 26.5,
+    "Adjustment": "",
+    "Length": 26.5
+  },
+  {
+    "ID": "B3",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 27.5,
+    "Adjustment": "",
+    "Length": 27.5
+  },
+  {
+    "ID": "F6",
+    "End1": 3,
+    "End2": 4,
+    "Length Raw": 28,
+    "Adjustment": -1,
+    "Length": 27.875
+  },
+  {
+    "ID": "D1",
+    "End1": 0,
+    "End2": 2,
+    "Length Raw": 30.5,
+    "Adjustment": "",
+    "Length": 30.5
+  },
+  {
+    "ID": "F7",
+    "End1": 0,
+    "End2": 1,
+    "Length Raw": 33,
+    "Adjustment": 1,
+    "Length": 33.125
+  },
+  {
+    "ID": "D2",
+    "End1": 3,
+    "End2": 4,
+    "Length Raw": 35.25,
+    "Adjustment": "",
+    "Length": 35.25
+  },
+  {
+    "ID": "F2",
+    "End1": 1,
+    "End2": 0,
+    "Length Raw": 35.25,
+    "Adjustment": "",
+    "Length": 35.25
+  },
+  {
+    "ID": "H4",
+    "End1": 0,
+    "End2": 2,
+    "Length Raw": 49.25,
+    "Adjustment": "",
+    "Length": 49.25
+  },
+  {
+    "ID": "F4",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 50.25,
+    "Adjustment": 1,
+    "Length": 50.375
+  },
+  {
+    "ID": "B4",
+    "End1": 0,
+    "End2": 1,
+    "Length Raw": 51,
+    "Adjustment": "",
+    "Length": 51
+  },
+  {
+    "ID": "B5",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 56.5,
+    "Adjustment": -1,
+    "Length": 56.375
+  },
+  {
+    "ID": "F3",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 64.25,
+    "Adjustment": "",
+    "Length": 64.25
+  },
+  {
+    "ID": "D5",
+    "End1": 3,
+    "End2": 4,
+    "Length Raw": 66.25,
+    "Adjustment": "",
+    "Length": 66.25
+  },
+  {
+    "ID": "L1",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 82.25,
+    "Adjustment": -1,
+    "Length": 82.125
+  },
+  {
+    "ID": "B1",
+    "End1": 0,
+    "End2": 4,
+    "Length Raw": 89.5,
+    "Adjustment": 1,
+    "Length": 89.625
+  },
+  {
+    "ID": "D8",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 89.75,
+    "Adjustment": "",
+    "Length": 89.75
+  },
+  {
+    "ID": "D6",
+    "End1": 0,
+    "End2": 1,
+    "Length Raw": 94.75,
+    "Adjustment": "",
+    "Length": 94.75
+  },
+  {
+    "ID": "B2",
+    "End1": 0,
+    "End2": 0,
+    "Length Raw": 112.25,
+    "Adjustment": "",
+    "Length": 112.25
+  },
+  {
+    "ID": "B6",
+    "End1": 1,
+    "End2": 4,
+    "Length Raw": 118.25,
+    "Adjustment": "",
+    "Length": 118.25
+  },
+  {
+    "ID": "L4",
+    "End1": 0,
+    "End2": 2,
+    "Length Raw": "",
+    "Adjustment": "",
+    "Length": ""
+  }
+]
