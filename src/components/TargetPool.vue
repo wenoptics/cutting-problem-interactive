@@ -18,10 +18,10 @@ function getColor(shape: TargetShape) {
   if (props.used.includes(shape.id)) {
     return 'info'
   }
-  if (props.maxLength && shape.length > props.maxLength) {
+  if (props.maxLength !== undefined && shape.length > props.maxLength) {
     return 'warning'
   }
-  if (props.allowedLeftEnds && !props.allowedLeftEnds.includes(shape.leftEnd)) {
+  if (props.allowedLeftEnds !== undefined && !props.allowedLeftEnds.includes(shape.leftEnd)) {
     return 'danger'
   }
   return ''

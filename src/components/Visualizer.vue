@@ -115,10 +115,10 @@ function handleRemoveLast (materialId: string) {
               Constrain conditions:
             </el-row>
             <el-row type="flex" class="row-bg">
-              <el-button plain type="danger" size="small" disabled>
+              <el-button plain type="warning" size="small" disabled>
                 Length must be &lt= remaining length ({{ ms.remainingLength }})
               </el-button>
-              <el-button plain type="warning" size="small" disabled>
+              <el-button plain type="danger" size="small" disabled>
                 Left end == {{ ms.nextAllowedLeftEnd }}
               </el-button>
             </el-row>
