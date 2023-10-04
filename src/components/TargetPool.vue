@@ -28,10 +28,10 @@ function getColor(shape: TargetShape) {
 }
 
 function getDisabled(shape: TargetShape) {
-  if (props.maxLength && shape.length > props.maxLength) {
+  if (props.maxLength !== undefined && shape.length > props.maxLength) {
     return true
   }
-  if (props.allowedLeftEnds && !props.allowedLeftEnds.includes(shape.leftEnd)) {
+  if (props.allowedLeftEnds !== undefined && !props.allowedLeftEnds.includes(shape.leftEnd)) {
     return true
   }
   return props.used.includes(shape.id)
@@ -42,10 +42,10 @@ function getTooltip(shape: TargetShape) {
   if (props.used.includes(shape.id)) {
     messages.push('Already used')
   }
-  if (props.maxLength && shape.length > props.maxLength) {
+  if (props.maxLength !== undefined && shape.length > props.maxLength) {
     messages.push(`Length ${shape.length} exceeds max length ${props.maxLength}`)
   }
-  if (props.allowedLeftEnds && !props.allowedLeftEnds.includes(shape.leftEnd)) {
+  if (props.allowedLeftEnds !== undefined && !props.allowedLeftEnds.includes(shape.leftEnd)) {
     messages.push(`Left end ${shape.leftEnd} not allowed`)
   }
   return messages.join(';\n')
