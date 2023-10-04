@@ -3,10 +3,12 @@
 import {computed, ref} from "vue";
 import Material from "~/components/Material.vue";
 import TargetPool from "~/components/TargetPool.vue";
-import {MaterialShape, MaterialState, TargetShape, TargetShapePool} from "~/components/types";
+import {TargetShape, TargetShapePool} from "~/components/types";
 
 import prefillMaterials from "./prefill_data/material.json";
 import prefillCuttingTargets from "./prefill_data/cutting-targets.json";
+import {AdapterCuts, AdapterCutsMap, isAdapterCut} from "~/components/adapter-cuts";
+import {MaterialShape, MaterialState} from "~/components/material";
 
 // Prepare data - material
 const prefillMaterialsList: MaterialShape[] = Object.entries(prefillMaterials).map(([id, data]) => ({
@@ -38,25 +40,31 @@ const prefillCuttingTargetsPool: TargetShapePool = Object.fromEntries(
 )
 console.debug('prefillCuttingTargets', prefillCuttingTargets, prefillCuttingTargetsPool)
 
-// const sticks = ref<MaterialShape[]>(prefillMaterialsList);
+const adapterCutMap = AdapterCutsMap
 
 // Temporary data
-const currentSolutions = ref<Record<string, MaterialState>>({
-  A1: new MaterialState(prefillMaterialsPool['A1']),
-  A2: new MaterialState(prefillMaterialsPool['A2']),
-  A3: new MaterialState(prefillMaterialsPool['A3']),
-  A4: new MaterialState(prefillMaterialsPool['A4']),
-});
+const currentSolutions = ref<Record<string, MaterialState>>(Object.fromEntries(
+    prefillMaterialsList.map((material) => [material.id, new MaterialState(material)])
+));
 
 const usedCuttingTargets = computed<string[]>(() => {
   const used: string[] = []
   for (const ms of Object.values(currentSolutions.value)) {
     for (const cs of ms.assignedSequence) {
+      if (isAdapterCut(cs.id)) { continue }
       used.push(cs.id)
     }
   }
   return used
 });
+
+const totalWaste = computed(() => {
+  let total = 0
+  for (const ms of Object.values(currentSolutions.value)) {
+    total += ms.currentWasteFromAdapterCuts
+  }
+  return total
+})
 
 function handleAddTo (materialId: string, shape: TargetShape) {
   console.debug('handleAdd', materialId, shape)
@@ -81,8 +89,13 @@ function handleRemoveLast (materialId: string) {
 </script>
 
 <template>
-  <div v-for="(ms, materialId) in currentSolutions" :key="materialId" py="2">
+  <el-card v-for="(ms, materialId) in currentSolutions" :key="materialId" my="6">
+    <div slot="header" class="clearfix">
+      <span>Material ID: {{ materialId }}</span>
+<!--      <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>-->
+    </div>
 
+    <div>
     <Material :material-state="ms"/>
 
     <el-row pt="8" align="middle">
@@ -90,6 +103,7 @@ function handleRemoveLast (materialId: string) {
           size="small"
           v-for="(c, idx) in ms.assignedSequence"
           :key="c.id"
+          :type="isAdapterCut(c.id) ? 'success' : 'info'"
       >
         {{ c.leftEnd }}
         <el-divider direction="vertical"></el-divider>
@@ -131,6 +145,19 @@ function handleRemoveLast (materialId: string) {
                 @select="handleAddTo(materialId, $event)"
             />
 
+            <el-divider></el-divider>
+            <el-row type="flex" class="row-bg">
+              Adapter cuts:
+              <p class="el-text--small">Use only when necessary, since it will increase material wastes and the number of cuts</p>
+            </el-row>
+            <TargetPool
+                :data="adapterCutMap"
+                :used="[]"
+                :max-length="ms.remainingLength"
+                :allowed-left-ends="[ms.nextAllowedLeftEnd]"
+                @select="handleAddTo(materialId, $event)"
+            ></TargetPool>
+
           </div>
         </el-card>
 
@@ -143,6 +170,8 @@ function handleRemoveLast (materialId: string) {
     </el-collapse>
 
   </div>
+
+  </el-card>
 
 </template>
 <style scoped>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 
 import {computed, ref} from "vue";
-import {CuttingSequence, MaterialState} from "~/components/types";
+import {CuttingSequence} from "~/components/types";
+import {MaterialState} from "~/components/material";
 
 const props = defineProps<{
   materialState: MaterialState,
@@ -74,8 +75,20 @@ const marks = computed(() => cs2Marks(props.materialState)
 
 <template>
 
+<!--  <el-row type="flex" class="row-bg">-->
+<!--    Material ID: {{ materialState.material.id }}-->
+<!--  </el-row>-->
   <el-row type="flex" class="row-bg">
-    {{ materialState.id }} (length=={{ materialState.material.length }}, remaining: {{ materialState.remainingLength }})
+    Material length: {{ materialState.material.length }}
+  </el-row>
+  <el-row type="flex" class="row-bg">
+    Assigned length: {{ materialState.assignedLength.toFixed(4) }}
+  </el-row>
+  <el-row type="flex" class="row-bg">
+    Remaining length: {{ materialState.remainingLength }}
+  </el-row>
+  <el-row type="flex" class="row-bg">
+    Current waste: {{ materialState.currentWasteFromAdapterCuts }}
   </el-row>
 
   <div class="block" :style="{

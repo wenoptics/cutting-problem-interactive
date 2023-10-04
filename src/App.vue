@@ -3,7 +3,7 @@
     <BaseHeader />
     <div class="flex main-container">
 <!--      <BaseSide />-->
-      <div w="full" py="4" pl="6">
+      <div w="full" py="4" px="6">
 <!--        <Logos my="4" />-->
         <Visualizer></Visualizer>
       </div>
