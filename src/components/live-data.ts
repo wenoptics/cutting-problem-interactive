@@ -61,7 +61,9 @@ function loadSessionData(): SessionData | null {
     console.log("Session data found", rawData);
     const objData = JSON.parse(rawData);
     if (objData.version !== "0.0.1") {
-      console.warn("Unknown data version", objData.version);
+      confirm(
+        "Cannot load data from previous version. Local data will be ignored",
+      );
       return null;
     }
     try {
@@ -78,6 +80,9 @@ function loadSessionData(): SessionData | null {
       };
     } catch (e) {
       console.warn("Failed to deserialize data", e);
+      confirm(
+        "Failed to load data from local storage. Local data will be ignored",
+      );
       return null;
     }
   } else {
@@ -86,7 +91,11 @@ function loadSessionData(): SessionData | null {
   }
 }
 
-const _initData: SessionData = loadSessionData() ?? defaultData;
+const _loadedData = loadSessionData();
+// if (_loadedData) {
+//   showToast("Session data loaded from local storage");
+// }
+const _initData: SessionData = _loadedData ?? defaultData;
 
 const sessionData = ref(_initData);
 

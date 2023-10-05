@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, UnwrapRef } from "vue";
 import {
   defaultData,
   saveSessionData,
@@ -7,6 +7,9 @@ import {
 } from "~/components/live-data";
 
 const currentShowingDialog = ref<null | "import" | "export">(null);
+function selectOrToggle(val: UnwrapRef<typeof currentShowingDialog>) {
+  currentShowingDialog.value = currentShowingDialog.value === val ? null : val;
+}
 
 const editorDataImport = ref("");
 const editorDataExport = ref("");
@@ -23,6 +26,10 @@ function syncCurrentSessionData() {
   editorDataExport.value = JSON.stringify(sessionData.value, null, 2);
 }
 
+function copyToClipboard() {
+  navigator.clipboard.writeText(editorDataExport.value);
+}
+
 function saveLocal() {
   saveSessionData(sessionData.value);
 }
@@ -30,7 +37,7 @@ function saveLocal() {
 
 <template>
   <el-row>
-    <el-button mb="1" @click="currentShowingDialog = 'import'"
+    <el-button mb="1" @click="selectOrToggle('import')"
       >Import Material & Solution</el-button
     >
     <el-button
@@ -38,21 +45,36 @@ function saveLocal() {
       type="primary"
       @click="
         syncCurrentSessionData();
-        currentShowingDialog = 'export';
+        selectOrToggle('export');
       "
     >
       Export Solution
     </el-button>
   </el-row>
 
-  <el-card v-if="currentShowingDialog === 'export'" style="max-height: 50vh">
+  <el-card
+    v-if="currentShowingDialog === 'export'"
+    style="max-height: 50vh"
+    body-class="pa-1"
+  >
     <el-button my="3" size="small" type="primary" @click="saveLocal"
       >Save locally</el-button
     >
-    <editor-json :value="editorDataExport" :is-read-only="true"></editor-json>
+    <el-button my="3" size="small" type="text" @click="copyToClipboard"
+      >Copy to clipboard</el-button
+    >
+    <editor-json
+      :value="editorDataExport"
+      :is-read-only="true"
+      :show-line-numbers="false"
+    ></editor-json>
   </el-card>
 
-  <el-card v-if="currentShowingDialog === 'import'" style="max-height: 50vh">
+  <el-card
+    v-if="currentShowingDialog === 'import'"
+    style="max-height: 50vh"
+    body-class="pa-1"
+  >
     TODO
     <!--    <el-button type="text" @click="handleLoadDefault"-->
     <!--      >Load default data</el-button-->

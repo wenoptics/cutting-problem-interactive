@@ -11,7 +11,7 @@ class MaterialShape extends TargetShape {}
 class MaterialState {
   constructor(
     public readonly material: MaterialShape,
-    _assignedData: CuttingSequence[] = [],
+    _assignedData: CuttingSequence = [],
   ) {
     this._assignedSequence = _assignedData;
   }
@@ -26,10 +26,11 @@ class MaterialState {
   }
 
   public static deserialize(json: object): MaterialState {
+    // @ts-ignore
     const { material, assignedSequence } = /*JSON.parse*/ json;
     return new MaterialState(
       MaterialShape.deserialize(material),
-      assignedSequence.map((target: string) => TargetShape.deserialize(target)),
+      assignedSequence.map((target: object) => TargetShape.deserialize(target)),
     );
   }
 
