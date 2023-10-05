@@ -1,22 +1,33 @@
-<script setup lang="ts">
-
-import {ref} from "vue";
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
-const elEditorRoot = ref<HTMLElement>()
+// monaco.languages.register({ id: 'custom' })
+// monaco.languages.setMonarchTokensProvider('custom', customLangMonarch)
 
-// @ts-ignore
-monaco.create(elEditorRoot.value, {
-  value: 'console.log("Hello, world!")',
-  language: 'javascript'
+const editor = ref()
+
+onMounted(() => {
+  monaco.editor.create(editor.value, {
+    value: `// Type source code in your language here...
+class MyClass {
+  @attribute
+  void main() {
+    Console.writeln( "Hello Monarch world\n");
+  }
+}`,
+    language: 'custom',
+  })
 })
-
 </script>
 
 <template>
-<div ref="elEditorRoot"></div>
+  <div id="editor" ref="editor"></div>
 </template>
 
 <style scoped>
-
+#editor {
+  width: 100vw;
+  height: 100vh;
+}
 </style>
