@@ -7,9 +7,7 @@ import {
 import { mapValues } from "~/utils";
 import { TargetShape } from "~/components/types";
 
-type Solution = {
-  [materialId: string]: MaterialState;
-};
+type Solution = Record<string, MaterialState>;
 
 function serializeSolution(solution: Solution): object {
   return mapValues(solution, (state) => state.serialize());

@@ -13,7 +13,9 @@ const prefillMaterialsList: MaterialShape[] = Object.entries(
   ([id, data]) =>
     new MaterialShape(
       id,
+      // @ts-ignore
       data.leftEnd ?? 0,
+      // @ts-ignore
       data.rightEnd ?? 0,
       data.length as unknown as number,
     ),
