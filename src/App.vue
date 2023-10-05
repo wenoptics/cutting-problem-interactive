@@ -1,11 +1,11 @@
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
+    <base-header />
     <div class="flex main-container">
       <!--      <BaseSide />-->
       <div w="full" py="4" px="6">
         <!--        <Logos my="4" />-->
-        <Visualizer />
+        <visualizer />
       </div>
     </div>
   </el-config-provider>

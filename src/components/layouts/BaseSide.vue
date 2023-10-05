@@ -26,27 +26,21 @@
     <!--    </el-sub-menu>-->
     <el-menu-item index="4" @click="showEditorMaterial = true">
       <el-icon><setting /></el-icon>
-      <template #title>
-        Material Editor
-      </template>
+      <template #title> Material Editor </template>
     </el-menu-item>
 
     <el-menu-item index="3" @click="handleExport">
       <el-icon><document /></el-icon>
-      <template #title>
-        Export
-      </template>
+      <template #title> Export </template>
     </el-menu-item>
   </el-menu>
-  <el-dialog
-    v-model:visible="showEditorMaterial"
-    title="Tips"
-    width="30%"
-  >
+  <el-dialog v-model:visible="showEditorMaterial" title="Tips" width="30%">
     <span>This is a message</span>
     <span slot="footer" class="dialog-footer">
       <el-button @click="showEditorMaterial = false">Cancel</el-button>
-      <el-button type="primary" @click="showEditorMaterial = false">Confirm</el-button>
+      <el-button type="primary" @click="showEditorMaterial = false"
+        >Confirm</el-button
+      >
     </span>
   </el-dialog>
 </template>
@@ -71,6 +65,6 @@ const handleClose = (key: string, keyPath: string[]) => {
 const showEditorMaterial = ref(false);
 
 function handleExport() {
-  console.debug("handleExport")
+  console.debug("handleExport");
 }
 </script>

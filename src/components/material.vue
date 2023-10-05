@@ -1,31 +1,27 @@
 <script setup lang="ts">
-
-import {computed, ref} from "vue";
-import {CuttingSequence} from "~/components/types";
-import {MaterialState} from "~/components/material";
+import { computed, ref } from "vue";
+import { CuttingSequence } from "~/components/types";
+import { MaterialState } from "~/components/material";
 
 const props = defineProps<{
-  materialState: MaterialState,
+  materialState: MaterialState;
 }>();
 
-const MAX_LENGTH = 130
-const px_per_length = ref(6)
+const MAX_LENGTH = 130;
+const px_per_length = ref(6);
 
 function handleViewPortSizeChanged() {
-  const windowWidth = window.innerWidth
-  px_per_length.value = Math.min(
-      Math.floor(windowWidth / MAX_LENGTH),
-      6
-  )
-  console.debug('handleViewPortSizeChanged', windowWidth, px_per_length.value)
+  const windowWidth = window.innerWidth;
+  px_per_length.value = Math.min(Math.floor(windowWidth / MAX_LENGTH), 6);
+  console.debug("handleViewPortSizeChanged", windowWidth, px_per_length.value);
 }
 
 // window.onresize = handleViewPortSizeChanged
-handleViewPortSizeChanged()
+handleViewPortSizeChanged();
 
 function cs2Marks(ms: MaterialState): Record<number, string> {
-  const cs = ms.assignedSequence
-   /*Example of cs:
+  const cs = ms.assignedSequence;
+  /*Example of cs:
     [
       { leftEnd: 0, rightEnd: 1, length: 10 },
       { leftEnd: 2, rightEnd: 3, length: 12 },
@@ -38,39 +34,38 @@ function cs2Marks(ms: MaterialState): Record<number, string> {
     }
   */
 
-  const marks: Record<number, string> = {}
+  const marks: Record<number, string> = {};
 
   // Push the first shape
-  marks[0] = ms.nextAllowedLeftEnd.toString()
+  marks[0] = ms.nextAllowedLeftEnd.toString();
 
-  let curLength = 0
-  for ( const idx in cs) {
+  let curLength = 0;
+  for (const idx in cs) {
     // console.debug(idx, typeof idx)
-    const idxInt = parseInt(idx)
-    const { length, rightEnd } = cs[idxInt]
-    const nextLeftEnd = cs[idxInt + 1]?.leftEnd ?? '?'
-    curLength += length
-    marks[curLength] = `${rightEnd} [${curLength}] ${nextLeftEnd}`
+    const idxInt = parseInt(idx);
+    const { length, rightEnd } = cs[idxInt];
+    const nextLeftEnd = cs[idxInt + 1]?.leftEnd ?? "?";
+    curLength += length;
+    marks[curLength] = `${rightEnd} [${curLength}] ${nextLeftEnd}`;
   }
-  return marks
-
+  return marks;
 }
 
 // const value = ref()
-const marks = computed(() => cs2Marks(props.materialState)
-    // {
-    //   0: '0°C',
-    //   8: '8°C',
-    //   37: '37°C',
-    //   50: {
-    //     style: {
-    //       color: '#f50',
-    //     },
-    //     label: "50",
-    //   },
-    // }
-)
-
+const marks = computed(
+  () => cs2Marks(props.materialState),
+  // {
+  //   0: '0°C',
+  //   8: '8°C',
+  //   37: '37°C',
+  //   50: {
+  //     style: {
+  //       color: '#f50',
+  //     },
+  //     label: "50",
+  //   },
+  // }
+);
 </script>
 
 <template>
@@ -91,8 +86,9 @@ const marks = computed(() => cs2Marks(props.materialState)
   </el-row>
 
   <div
-    class="block" :style="{
-      width: px_per_length * materialState.material.length + 'px'
+    class="block"
+    :style="{
+      width: px_per_length * materialState.material.length + 'px',
     }"
   >
     <el-slider
@@ -103,9 +99,7 @@ const marks = computed(() => cs2Marks(props.materialState)
     />
   </div>
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <style>
 .ep-slider__button-wrapper {

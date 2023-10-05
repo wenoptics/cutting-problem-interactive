@@ -1,80 +1,87 @@
 <script setup lang="ts">
+import { computed, ref } from "vue";
 
-import {computed, ref} from "vue";
-
-import {TargetShape, TargetShapePool} from "~/components/types";
+import { TargetShape, TargetShapePool } from "~/components/types";
 
 const props = defineProps<{
-  data: TargetShapePool,
-  used: string[],
-  maxLength?: number,
-  allowedLeftEnds?: number[],
+  data: TargetShapePool;
+  used: string[];
+  maxLength?: number;
+  allowedLeftEnds?: number[];
   // filterFn?: (shape: TargetShape) => boolean
-}>()
+}>();
 
-const emit = defineEmits(['select'])
+const emit = defineEmits(["select"]);
 
 function getColor(shape: TargetShape) {
   if (props.used.includes(shape.id)) {
-    return 'info'
+    return "info";
   }
   if (props.maxLength !== undefined && shape.length > props.maxLength) {
-    return 'warning'
+    return "warning";
   }
-  if (props.allowedLeftEnds !== undefined && !props.allowedLeftEnds.includes(shape.leftEnd)) {
-    return 'danger'
+  if (
+    props.allowedLeftEnds !== undefined &&
+    !props.allowedLeftEnds.includes(shape.leftEnd)
+  ) {
+    return "danger";
   }
-  return ''
+  return "";
 }
 
 function getDisabled(shape: TargetShape) {
   if (props.maxLength !== undefined && shape.length > props.maxLength) {
-    return true
+    return true;
   }
-  if (props.allowedLeftEnds !== undefined && !props.allowedLeftEnds.includes(shape.leftEnd)) {
-    return true
+  if (
+    props.allowedLeftEnds !== undefined &&
+    !props.allowedLeftEnds.includes(shape.leftEnd)
+  ) {
+    return true;
   }
-  return props.used.includes(shape.id)
+  return props.used.includes(shape.id);
 }
 
 function getTooltip(shape: TargetShape) {
-  const messages = []
+  const messages = [];
   if (props.used.includes(shape.id)) {
-    messages.push('Already used')
+    messages.push("Already used");
   }
   if (props.maxLength !== undefined && shape.length > props.maxLength) {
-    messages.push(`Length ${shape.length} exceeds max length ${props.maxLength}`)
+    messages.push(
+      `Length ${shape.length} exceeds max length ${props.maxLength}`,
+    );
   }
-  if (props.allowedLeftEnds !== undefined && !props.allowedLeftEnds.includes(shape.leftEnd)) {
-    messages.push(`Left end ${shape.leftEnd} not allowed`)
+  if (
+    props.allowedLeftEnds !== undefined &&
+    !props.allowedLeftEnds.includes(shape.leftEnd)
+  ) {
+    messages.push(`Left end ${shape.leftEnd} not allowed`);
   }
-  return messages.join(';\n')
+  return messages.join(";\n");
 }
 
 const numAvailable = computed(() => {
-  let count = 0
+  let count = 0;
   for (const shape of Object.values(props.data)) {
     // if (props.filterFn && !props.filterFn(shape)) {
     //   continue
     // }
     if (getDisabled(shape)) {
-      continue
+      continue;
     }
-    count++
+    count++;
   }
-  return count
-})
+  return count;
+});
 
-function handleSelect (shape: TargetShape) {
-  emit('select', shape)
+function handleSelect(shape: TargetShape) {
+  emit("select", shape);
 }
-
 </script>
 
 <template>
-  <el-row>
-    Available ({{ numAvailable }})
-  </el-row>
+  <el-row> Available ({{ numAvailable }}) </el-row>
 
   <el-row :gutter="2" type="flex" justify="start">
     <el-col>
@@ -100,6 +107,4 @@ function handleSelect (shape: TargetShape) {
   </el-row>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

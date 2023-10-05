@@ -1,102 +1,121 @@
 <script setup lang="ts">
-
-import {computed, ref} from "vue";
-import Material from "~/components/Material.vue";
-import TargetPool from "~/components/TargetPool.vue";
-import {TargetShape, TargetShapePool} from "~/components/types";
+import { computed, ref } from "vue";
+import Material from "~/components/material.vue";
+import TargetPool from "~/components/target-pool.vue";
+import { TargetShape, TargetShapePool } from "~/components/types";
 
 import prefillMaterials from "./prefill_data/material.json";
 import prefillCuttingTargets from "./prefill_data/cutting-targets.json";
-import {AdapterCuts, AdapterCutsMap, isAdapterCut} from "~/components/adapter-cuts";
-import {MaterialShape, MaterialState} from "~/components/material";
+import {
+  AdapterCuts,
+  AdapterCutsMap,
+  isAdapterCut,
+} from "~/components/adapter-cuts";
+import { MaterialShape, MaterialState } from "~/components/material";
 
 // Prepare data - material
-const prefillMaterialsList: MaterialShape[] = Object.entries(prefillMaterials).map(([id, data]) => ({
+const prefillMaterialsList: MaterialShape[] = Object.entries(
+  prefillMaterials,
+).map(([id, data]) => ({
   id,
   length: data.length as unknown as number,
   leftEnd: data.leftEnd ?? 0,
   rightEnd: data.rightEnd ?? 0,
-}))
+}));
 const prefillMaterialsPool: Record<string, MaterialShape> = Object.fromEntries(
-    prefillMaterialsList.map((material) => [material.id, material])
-)
-console.debug('prefillMaterials', prefillMaterials, prefillMaterialsPool)
+  prefillMaterialsList.map((material) => [material.id, material]),
+);
+console.debug("prefillMaterials", prefillMaterials, prefillMaterialsPool);
 
 // Prepare data - cutting targets
 type JSON_CuttingTarget = {
-  ID: string
-  End1: 0 | 1 | 2 | 3 | 4
-  End2: 0 | 1 | 2 | 3 | 4
-  Length: number | "" | undefined
-}
+  ID: string;
+  End1: 0 | 1 | 2 | 3 | 4;
+  End2: 0 | 1 | 2 | 3 | 4;
+  Length: number | "" | undefined;
+};
 const prefillCuttingTargetsPool: TargetShapePool = Object.fromEntries(
-    (prefillCuttingTargets as JSON_CuttingTarget[])
-        .filter(target => typeof target.Length === 'number')
-        .map(target => {
-          const {ID, End1, End2, Length} = target
-          const shape = new TargetShape(ID, End1, End2, Length)
-          return [ID, shape]
-        })
-)
-console.debug('prefillCuttingTargets', prefillCuttingTargets, prefillCuttingTargetsPool)
+  (prefillCuttingTargets as JSON_CuttingTarget[])
+    .filter((target) => typeof target.Length === "number")
+    .map((target) => {
+      const { ID, End1, End2, Length } = target;
+      const shape = new TargetShape(ID, End1, End2, Length);
+      return [ID, shape];
+    }),
+);
+console.debug(
+  "prefillCuttingTargets",
+  prefillCuttingTargets,
+  prefillCuttingTargetsPool,
+);
 
-const adapterCutMap = AdapterCutsMap
+const adapterCutMap = AdapterCutsMap;
 
 // Temporary data
-const currentSolutions = ref<Record<string, MaterialState>>(Object.fromEntries(
-    prefillMaterialsList.map((material) => [material.id, new MaterialState(material)])
-));
+const currentSolutions = ref<Record<string, MaterialState>>(
+  Object.fromEntries(
+    prefillMaterialsList.map((material) => [
+      material.id,
+      new MaterialState(material),
+    ]),
+  ),
+);
 
 const usedCuttingTargets = computed<string[]>(() => {
-  const used: string[] = []
+  const used: string[] = [];
   for (const ms of Object.values(currentSolutions.value)) {
     for (const cs of ms.assignedSequence) {
-      if (isAdapterCut(cs.id)) { continue }
-      used.push(cs.id)
+      if (isAdapterCut(cs.id)) {
+        continue;
+      }
+      used.push(cs.id);
     }
   }
-  return used
+  return used;
 });
 
 const totalWaste = computed(() => {
-  let total = 0
+  let total = 0;
   for (const ms of Object.values(currentSolutions.value)) {
-    total += ms.currentWasteFromAdapterCuts
+    total += ms.currentWasteFromAdapterCuts;
   }
-  return total
-})
+  return total;
+});
 
-function handleAddTo (materialId: string, shape: TargetShape) {
-  console.debug('handleAdd', materialId, shape)
-  const ms = currentSolutions.value[materialId]
+function handleAddTo(materialId: string, shape: TargetShape) {
+  console.debug("handleAdd", materialId, shape);
+  const ms = currentSolutions.value[materialId];
   if (!ms) {
-    console.warn('Material not found', materialId)
-    return
+    console.warn("Material not found", materialId);
+    return;
   }
-  ms.assignNewCut(shape)
+  ms.assignNewCut(shape);
 }
 
-function handleRemoveLast (materialId: string) {
-  console.debug('handleRemove', materialId)
-  const ms = currentSolutions.value[materialId]
+function handleRemoveLast(materialId: string) {
+  console.debug("handleRemove", materialId);
+  const ms = currentSolutions.value[materialId];
   if (!ms) {
-    console.warn('Material not found', materialId)
-    return
+    console.warn("Material not found", materialId);
+    return;
   }
-  ms.unassignLastCut()
+  ms.unassignLastCut();
 }
-
 </script>
 
 <template>
-  <el-card v-for="(ms, materialId) in currentSolutions" :key="materialId" my="6">
+  <el-card
+    v-for="(ms, materialId) in currentSolutions"
+    :key="materialId"
+    my="6"
+  >
     <div slot="header" class="clearfix">
       <span>Material ID: {{ materialId }}</span>
       <!--      <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>-->
     </div>
 
     <div>
-      <Material :material-state="ms" />
+      <material :material-state="ms" />
 
       <el-row pt="8" align="middle">
         <el-tag
@@ -131,14 +150,16 @@ function handleRemoveLast (materialId: string) {
               </el-row>
               <el-row type="flex" class="row-bg">
                 <el-button plain type="warning" size="small" disabled>
-                  Length must be &lt= remaining length ({{ ms.remainingLength }})
+                  Length must be &lt;= remaining length ({{
+                    ms.remainingLength
+                  }})
                 </el-button>
                 <el-button plain type="danger" size="small" disabled>
                   Left end == {{ ms.nextAllowedLeftEnd }}
                 </el-button>
               </el-row>
 
-              <TargetPool
+              <target-pool
                 :data="prefillCuttingTargetsPool"
                 :used="usedCuttingTargets"
                 :max-length="ms.remainingLength"
@@ -150,10 +171,11 @@ function handleRemoveLast (materialId: string) {
               <el-row type="flex" class="row-bg">
                 Adapter cuts:
                 <p class="el-text--small">
-                  Use only when necessary, since it will increase material wastes and the number of cuts
+                  Use only when necessary, since it will increase material
+                  wastes and the number of cuts
                 </p>
               </el-row>
-              <TargetPool
+              <target-pool
                 :data="adapterCutMap"
                 :used="[]"
                 :max-length="ms.remainingLength"
@@ -169,6 +191,4 @@ function handleRemoveLast (materialId: string) {
     </div>
   </el-card>
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>

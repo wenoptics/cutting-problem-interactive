@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
+import { ref, onMounted } from "vue";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 // monaco.languages.register({ id: 'custom' })
 // monaco.languages.setMonarchTokensProvider('custom', customLangMonarch)
 
-const editor = ref()
+const editor = ref();
 
 onMounted(() => {
   monaco.editor.create(editor.value, {
@@ -16,9 +16,9 @@ class MyClass {
     Console.writeln( "Hello Monarch world\n");
   }
 }`,
-    language: 'custom',
-  })
-})
+    language: "custom",
+  });
+});
 </script>
 
 <template>
