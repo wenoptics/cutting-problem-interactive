@@ -16,7 +16,7 @@ const props = defineProps({
 
 const height = ref(16);
 const px_per_length = computed(() => height.value / MATERIAL_WIDTH_PHYS);
-const color = ref(isAdapterCut(props.shape) ? "#ff3f3f" : "#3f9fff");
+const color = ref(isAdapterCut(props.shape) ? "#ffa53f" : "#3f9fff");
 
 const commonStyleTriangle = {
   width: 0,
@@ -52,22 +52,26 @@ const rectLength = computed(() => {
   return lenPhys * px_per_length.value;
 });
 
-const styleLeftT2 = {
+// ◢
+const styleLeftT4 = {
   "border-width": `0 0 ${height.value}px ${height.value}px`,
   "border-color": `transparent transparent ${color.value} transparent`,
 };
 
-const styleLeftT4 = {
+// ◥
+const styleLeftT2 = {
   "border-width": `0 ${height.value}px ${height.value}px 0`,
   "border-color": `transparent ${color.value} transparent transparent`,
 };
 
-const styleRightT1 = {
+// ◤
+const styleRightT3 = {
   "border-width": `${height.value}px ${height.value}px 0 0`,
   "border-color": `${color.value} transparent transparent transparent`,
 };
 
-const styleRightT3 = {
+// ◣
+const styleRightT1 = {
   "border-width": `${height.value}px 0 0 ${height.value}px`,
   "border-color": `transparent transparent transparent ${color.value}`,
 };

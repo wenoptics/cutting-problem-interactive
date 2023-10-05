@@ -10,7 +10,7 @@ declare module 'vue' {
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
     BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
     CommandBar: typeof import('./components/CommandBar.vue')['default']
-    CutSegment: typeof import('./components/cut-segment.vue')['default']
+    CutSegment: typeof import('./components/CutSegment.vue')['default']
     EditorJson: typeof import('./components/EditorJson.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
