@@ -12,6 +12,10 @@ const props = defineProps({
     type: Object as PropType<TargetShape>,
     required: true,
   },
+  highlight: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const height = ref(16);
@@ -84,7 +88,7 @@ const styleRect = {
 </script>
 
 <template>
-  <div class="relative seg" :title="textDescription">
+  <div class="relative seg" :title="textDescription" :class="{ highlight }">
     <span
       v-if="shape.leftEnd === EndType.T2"
       class="seg-triangle left"
@@ -137,6 +141,10 @@ const styleRect = {
 
   &:hover {
     filter: drop-shadow(0 0 0.25rem rgba(0, 0, 0, 0.45));
+  }
+
+  &.highlight {
+    filter: drop-shadow(0 0 0.2rem rgba(0, 0, 0, 0.85));
   }
 }
 </style>

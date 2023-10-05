@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { CuttingSequence } from "~/components/types";
 import { MaterialState } from "~/components/material";
+import { isAdapterCut } from "~/components/adapter-cuts";
 
 const props = defineProps<{
   materialState: MaterialState;
@@ -66,6 +66,8 @@ const marks = computed(
   //   },
   // }
 );
+
+const currentHighlight = ref(-1);
 </script>
 
 <template>
@@ -110,8 +112,29 @@ const marks = computed(
         :key="idx"
         :shape="assigned"
         class="mr-1"
+        :highlight="currentHighlight === idx"
+        @mouseenter="currentHighlight = idx"
+        @mouseleave="currentHighlight = -1"
       ></cut-segment>
     </div>
+
+    <el-row pt="2" align="middle">
+      <el-tag
+        v-for="(c, idx) in materialState.assignedSequence"
+        :key="c.id"
+        size="small"
+        :type="isAdapterCut(c.id) ? 'warning' : 'info'"
+        :hit="currentHighlight === idx"
+        @mouseenter="currentHighlight = idx"
+        @mouseleave="currentHighlight = -1"
+      >
+        {{ c.leftEnd }}
+        <el-divider direction="vertical" />
+        {{ c.id }} ({{ c.length }})
+        <el-divider direction="vertical" />
+        {{ c.rightEnd }}
+      </el-tag>
+    </el-row>
   </div>
 </template>
 <style scoped></style>

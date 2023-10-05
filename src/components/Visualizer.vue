@@ -69,34 +69,21 @@ function handleRemoveLast(materialId: string) {
     <div>
       <material :material-state="ms" />
 
-      <el-row pt="2" align="middle">
-        <el-tag
-          v-for="(c, idx) in ms.assignedSequence"
-          :key="c.id"
-          size="small"
-          :type="isAdapterCut(c.id) ? 'warning' : 'info'"
-        >
-          {{ c.leftEnd }}
-          <el-divider direction="vertical" />
-          {{ c.id }} ({{ c.length }})
-          <el-divider direction="vertical" />
-          {{ c.rightEnd }}
-        </el-tag>
-
-        <el-button
-          v-if="ms.assignedSequence.length !== 0"
-          type="warning"
-          size="small"
-          @click="handleRemoveLast(materialId)"
-        >
-          Remove last
-        </el-button>
-      </el-row>
-
       <el-collapse>
         <el-collapse-item title="Edit" name="1">
           <el-card class="box-card" mr="6">
             <div>
+              <el-button
+                v-if="ms.assignedSequence.length !== 0"
+                type="warning"
+                size="small"
+                @click="handleRemoveLast(materialId)"
+              >
+                Remove last
+              </el-button>
+
+              <el-divider></el-divider>
+
               <el-row type="flex" class="row-bg">
                 Constrain conditions:
               </el-row>
