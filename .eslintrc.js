@@ -2,30 +2,37 @@ module.exports = {
   extends: [
     // 'semistandard',
     // 'standard',
-    'plugin:vue/vue3-recommended'
-    // 'plugin:@typescript-eslint/recommended',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-recommended",
+    "prettier",
   ],
-  "parser": "vue-eslint-parser",
-  "parserOptions": {
-    "parser": "@typescript-eslint/parser",
-    "sourceType": "module"
+  parser: "vue-eslint-parser",
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    sourceType: "module",
   },
+  ignorePatterns: ["src/env.d.ts", "**/vendor/*.js"],
   rules: {
-    'vue/no-unused-vars': 'warn',
-    'vue/no-deprecated-slot-attribute': 'warn',
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "vue/no-unused-vars": "warn",
+    "vue/no-deprecated-slot-attribute": "warn",
     "vue/max-attributes-per-line": [
       "error",
       {
-        "singleline": {
-          "max": 5
+        singleline: {
+          max: 5,
         },
-        "multiline": {
-          "max": 3
-        }
-      }
+        multiline: {
+          max: 3,
+        },
+      },
     ],
-  }
-  // plugins: [
-  //   '@typescript-eslint'
-  // ]
-}
+  },
+  plugins: [
+    "@typescript-eslint",
+    "prettier",
+    // 'vue'
+  ],
+};
