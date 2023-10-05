@@ -92,7 +92,7 @@ const marks = computed(
     }"
   >
     <el-slider
-      v-model="materialState.assignedLength"
+      :value="materialState.assignedLength"
       :show-input-controls="false"
       :marks="marks"
       :max="materialState.material.length"

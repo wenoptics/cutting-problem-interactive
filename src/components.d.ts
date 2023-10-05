@@ -9,8 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
     BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
-    CommandBar: typeof import('./components/layouts/command-bar.vue')['default']
-    EditorJson: typeof import('./components/editor-json.vue')['default']
+    CommandBar: typeof import('./components/layouts/CommandBar.vue')['default']
+    EditorJson: typeof import('./components/EditorJson.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']
@@ -24,8 +24,8 @@ declare module 'vue' {
     ElSlider: typeof import('element-plus/es')['ElSlider']
     ElTag: typeof import('element-plus/es')['ElTag']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    Material: typeof import('./components/material.vue')['default']
-    TargetPool: typeof import('./components/target-pool.vue')['default']
-    Visualizer: typeof import('./components/visualizer.vue')['default']
+    Material: typeof import('./components/Material.vue')['default']
+    TargetPool: typeof import('./components/TargetPool.vue')['default']
+    Visualizer: typeof import('./components/Visualizer.vue')['default']
   }
 }

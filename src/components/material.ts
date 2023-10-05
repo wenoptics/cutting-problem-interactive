@@ -97,4 +97,5 @@ function getLeftEnd(rightEnd: EndType) {
     case EndType.T3:
       return EndType.T4;
   }
+  throw new Error(`Invalid end: ${rightEnd}`);
 }

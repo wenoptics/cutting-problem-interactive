@@ -25,6 +25,7 @@ class TargetShape {
       !ALLOW_RIGHT_ENDS.includes(this.rightEnd)
     ) {
       // Swap left and right
+      // @ts-ignore (Use a getter to fix this)
       [this.leftEnd, this.rightEnd] = [this.rightEnd, this.leftEnd];
       console.debug(`Swapped left and right ends for ${this.id}`);
     }

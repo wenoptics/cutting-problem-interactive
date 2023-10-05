@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import Material from "~/components/material.vue";
-import TargetPool from "~/components/target-pool.vue";
+import Material from "~/components/Material.vue";
+import TargetPool from "~/components/TargetPool.vue";
 import { TargetShape, TargetShapePool } from "~/components/types";
 
 import prefillMaterials from "./prefill_data/material.json";
