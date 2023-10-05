@@ -1,23 +1,26 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, watchEffect } from "vue";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 // monaco.languages.register({ id: 'custom' })
 // monaco.languages.setMonarchTokensProvider('custom', customLangMonarch)
 
+const props = defineProps<{
+  value: string;
+  isReadOnly?: boolean;
+}>();
+
 const editor = ref();
 
+let editorInstance: monaco.editor.IStandaloneCodeEditor;
+
 onMounted(() => {
-  monaco.editor.create(editor.value, {
-    value: `// Type source code in your language here...
-class MyClass {
-  @attribute
-  void main() {
-    Console.writeln( "Hello Monarch world\n");
-  }
-}`,
-    language: "custom",
+  editorInstance = monaco.editor.create(editor.value, {
+    value: props.value,
+    language: "javascript",
+    readOnly: props.isReadOnly,
   });
+  console.log("editorInstance", editorInstance);
 });
 </script>
 

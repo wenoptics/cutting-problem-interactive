@@ -5,6 +5,7 @@
       <!--      <BaseSide />-->
       <div w="full" py="4" px="6">
         <!--        <Logos my="4" />-->
+        <command-bar></command-bar>
         <visualizer />
       </div>
     </div>
@@ -13,7 +14,6 @@
 
 <style>
 #app {
-  text-align: center;
   color: var(--ep-text-color-primary);
 }
 

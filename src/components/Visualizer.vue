@@ -4,69 +4,18 @@ import Material from "~/components/Material.vue";
 import TargetPool from "~/components/TargetPool.vue";
 import { TargetShape, TargetShapePool } from "~/components/types";
 
-import prefillMaterials from "./prefill_data/material.json";
-import prefillCuttingTargets from "./prefill_data/cutting-targets.json";
 import {
   AdapterCuts,
   AdapterCutsMap,
   isAdapterCut,
 } from "~/components/adapter-cuts";
-import { MaterialShape, MaterialState } from "~/components/material";
-
-// Prepare data - material
-const prefillMaterialsList: MaterialShape[] = Object.entries(
-  prefillMaterials,
-).map(
-  ([id, data]) =>
-    new MaterialShape(
-      id,
-      data.leftEnd ?? 0,
-      data.rightEnd ?? 0,
-      data.length as unknown as number,
-    ),
-);
-const prefillMaterialsPool: Record<string, MaterialShape> = Object.fromEntries(
-  prefillMaterialsList.map((material) => [material.id, material]),
-);
-console.debug("prefillMaterials", prefillMaterials, prefillMaterialsPool);
-
-// Prepare data - cutting targets
-type JSON_CuttingTarget = {
-  ID: string;
-  End1: 0 | 1 | 2 | 3 | 4;
-  End2: 0 | 1 | 2 | 3 | 4;
-  Length: number | "" | undefined;
-};
-const prefillCuttingTargetsPool: TargetShapePool = Object.fromEntries(
-  (prefillCuttingTargets as JSON_CuttingTarget[])
-    .filter((target) => typeof target.Length === "number")
-    .map((target) => {
-      const { ID, End1, End2, Length } = target;
-      const shape = new TargetShape(ID, End1, End2, Length);
-      return [ID, shape];
-    }),
-);
-console.debug(
-  "prefillCuttingTargets",
-  prefillCuttingTargets,
-  prefillCuttingTargetsPool,
-);
+import { sessionData } from "~/components/live-data";
 
 const adapterCutMap = AdapterCutsMap;
 
-// Temporary data
-const currentSolutions = ref<Record<string, MaterialState>>(
-  Object.fromEntries(
-    prefillMaterialsList.map((material) => [
-      material.id,
-      new MaterialState(material),
-    ]),
-  ),
-);
-
 const usedCuttingTargets = computed<string[]>(() => {
   const used: string[] = [];
-  for (const ms of Object.values(currentSolutions.value)) {
+  for (const ms of Object.values(sessionData.value.currentSolution)) {
     for (const cs of ms.assignedSequence) {
       if (isAdapterCut(cs.id)) {
         continue;
@@ -79,7 +28,7 @@ const usedCuttingTargets = computed<string[]>(() => {
 
 const totalWaste = computed(() => {
   let total = 0;
-  for (const ms of Object.values(currentSolutions.value)) {
+  for (const ms of Object.values(sessionData.value.currentSolution)) {
     total += ms.currentWasteFromAdapterCuts;
   }
   return total;
@@ -87,7 +36,7 @@ const totalWaste = computed(() => {
 
 function handleAddTo(materialId: string, shape: TargetShape) {
   console.debug("handleAdd", materialId, shape);
-  const ms = currentSolutions.value[materialId];
+  const ms = sessionData.value.currentSolution[materialId];
   if (!ms) {
     console.warn("Material not found", materialId);
     return;
@@ -97,7 +46,7 @@ function handleAddTo(materialId: string, shape: TargetShape) {
 
 function handleRemoveLast(materialId: string) {
   console.debug("handleRemove", materialId);
-  const ms = currentSolutions.value[materialId];
+  const ms = sessionData.value.currentSolution[materialId];
   if (!ms) {
     console.warn("Material not found", materialId);
     return;
@@ -108,7 +57,7 @@ function handleRemoveLast(materialId: string) {
 
 <template>
   <el-card
-    v-for="(ms, materialId) in currentSolutions"
+    v-for="(ms, materialId) in sessionData.currentSolution"
     :key="materialId"
     my="6"
   >
@@ -163,7 +112,7 @@ function handleRemoveLast(materialId: string) {
               </el-row>
 
               <target-pool
-                :data="prefillCuttingTargetsPool"
+                :data="sessionData.currentCuttingTargetPool"
                 :used="usedCuttingTargets"
                 :max-length="ms.remainingLength"
                 :allowed-left-ends="[ms.nextAllowedLeftEnd]"
