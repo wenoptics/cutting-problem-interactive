@@ -91,12 +91,18 @@ const marks = computed(
       width: px_per_length * materialState.material.length + 'px',
     }"
   >
-    <el-slider
-      :value="materialState.assignedLength"
-      :show-input-controls="false"
-      :marks="marks"
-      :max="materialState.material.length"
-    />
+    <!--    <el-slider-->
+    <!--      :value="materialState.assignedLength"-->
+    <!--      :show-input-controls="false"-->
+    <!--      :marks="marks"-->
+    <!--      :max="materialState.material.length"-->
+    <!--    />-->
+    <el-progress
+      :percentage="
+        (materialState.assignedLength / materialState.material.length) * 100
+      "
+      :show-text="false"
+    ></el-progress>
   </div>
 </template>
 <style scoped></style>

@@ -16,12 +16,15 @@ import { MaterialShape, MaterialState } from "~/components/material";
 // Prepare data - material
 const prefillMaterialsList: MaterialShape[] = Object.entries(
   prefillMaterials,
-).map(([id, data]) => ({
-  id,
-  length: data.length as unknown as number,
-  leftEnd: data.leftEnd ?? 0,
-  rightEnd: data.rightEnd ?? 0,
-}));
+).map(
+  ([id, data]) =>
+    new MaterialShape(
+      id,
+      data.leftEnd ?? 0,
+      data.rightEnd ?? 0,
+      data.length as unknown as number,
+    ),
+);
 const prefillMaterialsPool: Record<string, MaterialShape> = Object.fromEntries(
   prefillMaterialsList.map((material) => [material.id, material]),
 );
@@ -117,7 +120,7 @@ function handleRemoveLast(materialId: string) {
     <div>
       <material :material-state="ms" />
 
-      <el-row pt="8" align="middle">
+      <el-row pt="2" align="middle">
         <el-tag
           v-for="(c, idx) in ms.assignedSequence"
           :key="c.id"

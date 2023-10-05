@@ -6,7 +6,7 @@ import {
   TargetShape,
 } from "~/components/types";
 
-type MaterialShape = TargetShape;
+class MaterialShape extends TargetShape {}
 
 class MaterialState {
   constructor(public readonly material: MaterialShape) {}
