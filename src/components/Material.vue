@@ -13,7 +13,7 @@ const px_per_length = ref(6);
 function handleViewPortSizeChanged() {
   const windowWidth = window.innerWidth;
   px_per_length.value = Math.min(Math.floor(windowWidth / MAX_LENGTH), 6);
-  console.debug("handleViewPortSizeChanged", windowWidth, px_per_length.value);
+  // console.debug("handleViewPortSizeChanged", windowWidth, px_per_length.value);
 }
 
 // window.onresize = handleViewPortSizeChanged
@@ -103,6 +103,15 @@ const marks = computed(
       "
       :show-text="false"
     ></el-progress>
+
+    <div style="opacity: 0.75" class="py-2">
+      <cut-segment
+        v-for="(assigned, idx) in materialState.assignedSequence"
+        :key="idx"
+        :shape="assigned"
+        class="mr-1"
+      ></cut-segment>
+    </div>
   </div>
 </template>
 <style scoped></style>
