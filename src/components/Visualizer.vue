@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import Material from "~/components/Material.vue";
 import TargetPool from "~/components/TargetPool.vue";
-import { TargetShape, TargetShapePool } from "~/components/types";
+import { TargetShape } from "~/components/types";
 
 import {
   AdapterCuts,
@@ -10,12 +10,13 @@ import {
   isAdapterCut,
 } from "~/components/adapter-cuts";
 import { sessionData } from "~/components/live-data";
+import SolutionStatus from "~/components/SolutionStatus.vue";
 
 const adapterCutMap = AdapterCutsMap;
 
 const usedCuttingTargets = computed<string[]>(() => {
   const used: string[] = [];
-  for (const ms of Object.values(sessionData.value.currentSolution)) {
+  for (const ms of Object.values(sessionData.value.solution.materialStates)) {
     for (const cs of ms.assignedSequence) {
       if (isAdapterCut(cs.id)) {
         continue;
@@ -26,17 +27,9 @@ const usedCuttingTargets = computed<string[]>(() => {
   return used;
 });
 
-const totalWaste = computed(() => {
-  let total = 0;
-  for (const ms of Object.values(sessionData.value.currentSolution)) {
-    total += ms.currentWasteFromAdapterCuts;
-  }
-  return total;
-});
-
 function handleAddTo(materialId: string, shape: TargetShape) {
   console.debug("handleAdd", materialId, shape);
-  const ms = sessionData.value.currentSolution[materialId];
+  const ms = sessionData.value.solution.materialStates[materialId];
   if (!ms) {
     console.warn("Material not found", materialId);
     return;
@@ -46,7 +39,7 @@ function handleAddTo(materialId: string, shape: TargetShape) {
 
 function handleRemoveLast(materialId: string) {
   console.debug("handleRemove", materialId);
-  const ms = sessionData.value.currentSolution[materialId];
+  const ms = sessionData.value.solution.materialStates[materialId];
   if (!ms) {
     console.warn("Material not found", materialId);
     return;
@@ -56,8 +49,15 @@ function handleRemoveLast(materialId: string) {
 </script>
 
 <template>
+  <solution-status
+    :material-map="sessionData.solution.materialMap"
+    :cutting-target-map="sessionData.targetPool"
+    :solution="sessionData.solution"
+    :solved-cutting-targets="usedCuttingTargets"
+  ></solution-status>
+
   <el-card
-    v-for="(ms, materialId) in sessionData.currentSolution"
+    v-for="(ms, materialId) in sessionData.solution.materialStates"
     :key="materialId"
     my="6"
   >
@@ -74,7 +74,7 @@ function handleRemoveLast(materialId: string) {
           v-for="(c, idx) in ms.assignedSequence"
           :key="c.id"
           size="small"
-          :type="isAdapterCut(c.id) ? 'success' : 'info'"
+          :type="isAdapterCut(c.id) ? 'warning' : 'info'"
         >
           {{ c.leftEnd }}
           <el-divider direction="vertical" />
@@ -112,7 +112,7 @@ function handleRemoveLast(materialId: string) {
               </el-row>
 
               <target-pool
-                :data="sessionData.currentCuttingTargetPool"
+                :data="sessionData.targetPool"
                 :used="usedCuttingTargets"
                 :max-length="ms.remainingLength"
                 :allowed-left-ends="[ms.nextAllowedLeftEnd]"

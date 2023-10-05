@@ -1,4 +1,3 @@
-import { MaterialShape, MaterialState } from "~/components/material";
 import { ref } from "vue";
 import {
   prefillCuttingTargetsPool,
@@ -6,44 +5,22 @@ import {
 } from "~/components/prefill";
 import { mapValues } from "~/utils";
 import { TargetShape } from "~/components/types";
-
-type Solution = Record<string, MaterialState>;
-
-function serializeSolution(solution: Solution): object {
-  return mapValues(solution, (state) => state.serialize());
-}
-
-function deserializeSolution(json: object): Solution {
-  return mapValues(json, (state) => MaterialState.deserialize(state));
-}
-
-function createEmptySolution(
-  materialPool: typeof prefillMaterialsPool,
-): Solution {
-  return mapValues(materialPool, (material) => new MaterialState(material));
-}
+import { Solution } from "~/components/solution";
 
 const defaultData = {
-  currentMaterialPool: prefillMaterialsPool,
-  currentCuttingTargetPool: prefillCuttingTargetsPool,
-  currentSolution: createEmptySolution(prefillMaterialsPool),
+  targetPool: prefillCuttingTargetsPool,
+  solution: new Solution({ materialList: Object.values(prefillMaterialsPool) }),
 };
 
 type SessionData = typeof defaultData;
 
 function saveSessionData(sd: SessionData) {
   const rawData = {
-    version: "0.0.1",
+    version: 1.0,
     timestamp: Date.now(),
     data: {
-      currentMaterialPool: mapValues(sd.currentMaterialPool, (material) =>
-        material.serialize(),
-      ),
-      currentCuttingTargetPool: mapValues(
-        sd.currentCuttingTargetPool,
-        (target) => target.serialize(),
-      ),
-      currentSolution: serializeSolution(sd.currentSolution),
+      targetPool: mapValues(sd.targetPool, (target) => target.serialize()),
+      solution: sd.solution.serialize(),
     },
   };
 
@@ -58,7 +35,7 @@ function loadSessionData(): SessionData | null {
   if (rawData) {
     console.log("Session data found", rawData);
     const objData = JSON.parse(rawData);
-    if (objData.version !== "0.0.1") {
+    if (objData.version >= 2.0) {
       confirm(
         "Cannot load data from previous version. Local data will be ignored",
       );
@@ -66,15 +43,10 @@ function loadSessionData(): SessionData | null {
     }
     try {
       return {
-        currentMaterialPool: mapValues(
-          objData.data.currentMaterialPool,
-          (material) => MaterialShape.deserialize(material),
+        targetPool: mapValues(objData.data.targetPool, (target: object) =>
+          TargetShape.deserialize(target),
         ),
-        currentCuttingTargetPool: mapValues(
-          objData.data.currentCuttingTargetPool,
-          (target) => TargetShape.deserialize(target),
-        ),
-        currentSolution: deserializeSolution(objData.data.currentSolution),
+        solution: Solution.deserialize(objData.data.solution),
       };
     } catch (e) {
       console.warn("Failed to deserialize data", e);
@@ -97,10 +69,4 @@ const _initData: SessionData = _loadedData ?? defaultData;
 
 const sessionData = ref(_initData);
 
-export {
-  createEmptySolution,
-  Solution,
-  sessionData,
-  defaultData,
-  saveSessionData,
-};
+export { sessionData, defaultData, saveSessionData };

@@ -29,6 +29,8 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     Material: typeof import('./components/Material.vue')['default']
+    SolutionStatus: typeof import('./components/SolutionStatus.vue')['default']
+    Status: typeof import('./components/Status.vue')['default']
     TargetPool: typeof import('./components/TargetPool.vue')['default']
     Visualizer: typeof import('./components/Visualizer.vue')['default']
   }
