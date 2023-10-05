@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import Material from "~/components/Material.vue";
 import TargetPool from "~/components/TargetPool.vue";
 import { TargetShape } from "~/components/types";
 
-import {
-  AdapterCuts,
-  AdapterCutsMap,
-  isAdapterCut,
-} from "~/components/adapter-cuts";
+import { AdapterCutsMap, isAdapterCut } from "~/components/adapter-cuts";
 import { sessionData } from "~/components/live-data";
 import SolutionStatus from "~/components/SolutionStatus.vue";
 
@@ -49,6 +45,8 @@ function handleRemoveLast(materialId: string) {
 </script>
 
 <template>
+  <command-bar></command-bar>
+
   <solution-status
     :material-map="sessionData.solution.materialMap"
     :cutting-target-map="sessionData.targetPool"
@@ -65,10 +63,8 @@ function handleRemoveLast(materialId: string) {
       <span>Material ID: {{ materialId }}</span>
       <!--      <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>-->
     </div>
-
     <div>
       <material :material-state="ms" />
-
       <el-collapse>
         <el-collapse-item title="Edit" name="1">
           <el-card class="box-card" mr="6">

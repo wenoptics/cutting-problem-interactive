@@ -2,7 +2,9 @@
 import { computed, ref, UnwrapRef } from "vue";
 import {
   defaultData,
-  saveSessionData,
+  deserSessionData,
+  localStorageHelper,
+  serSessionData,
   sessionData,
 } from "~/components/live-data";
 
@@ -12,18 +14,31 @@ function selectOrToggle(val: UnwrapRef<typeof currentShowingDialog>) {
 }
 
 const editorDataImport = ref("");
-const editorDataExport = ref("");
+const editorDataExport = computed(() => {
+  return serSessionData(sessionData.value);
+});
 
 function handleImport() {
-  console.debug("handleImport");
+  if (!confirm("This will overwrite your current session data. Continue?")) {
+    return;
+  }
+  try {
+    sessionData.value = deserSessionData(editorDataImport.value);
+  } catch (e) {
+    console.error(e);
+    alert("Cannot parse the input data correctly");
+  }
 }
 
 function handleLoadDefault() {
-  editorDataImport.value = JSON.stringify(defaultData, null, 2);
-}
-
-function syncCurrentSessionData() {
-  editorDataExport.value = JSON.stringify(sessionData.value, null, 2);
+  const newValue = serSessionData(defaultData);
+  if (
+    newValue !== editorDataExport.value &&
+    !confirm("This will overwrite your current editor text. Continue?")
+  ) {
+    return;
+  }
+  editorDataImport.value = newValue;
 }
 
 function copyToClipboard() {
@@ -31,7 +46,7 @@ function copyToClipboard() {
 }
 
 function saveLocal() {
-  saveSessionData(sessionData.value);
+  localStorageHelper.saveToLocal(serSessionData(sessionData.value));
 }
 </script>
 
@@ -40,21 +55,14 @@ function saveLocal() {
     <el-button mb="1" @click="selectOrToggle('import')"
       >Import Material & Solution</el-button
     >
-    <el-button
-      mb="1"
-      type="primary"
-      @click="
-        syncCurrentSessionData();
-        selectOrToggle('export');
-      "
-    >
+    <el-button mb="1" type="primary" @click="selectOrToggle('export')">
       Export Solution
     </el-button>
   </el-row>
 
   <el-card
     v-if="currentShowingDialog === 'export'"
-    style="max-height: 50vh"
+    style="max-height: 30vh"
     body-class="pa-1"
   >
     <el-button my="3" size="small" type="primary" @click="saveLocal"
@@ -75,11 +83,18 @@ function saveLocal() {
     style="max-height: 50vh"
     body-class="pa-1"
   >
-    TODO
-    <!--    <el-button type="text" @click="handleLoadDefault"-->
-    <!--      >Load default data</el-button-->
-    <!--    >-->
-    <!--    <editor-json :value="editorDataImport"></editor-json>-->
+    <el-button
+      my="3"
+      size="small"
+      type="primary"
+      :disabled="editorDataImport === ''"
+      @click="handleImport"
+      >Apply</el-button
+    >
+    <el-button my="3" type="text" @click="handleLoadDefault"
+      >Load default data</el-button
+    >
+    <editor-json v-model:value="editorDataImport"></editor-json>
   </el-card>
 </template>
 

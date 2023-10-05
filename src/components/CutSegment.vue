@@ -144,7 +144,7 @@ const styleRect = {
   }
 
   &.highlight {
-    filter: drop-shadow(0 0 0.2rem rgba(0, 0, 0, 0.85));
+    filter: brightness(1.25);
   }
 }
 </style>

@@ -12,20 +12,34 @@ const props = defineProps<{
   showLineNumbers?: boolean;
 }>();
 
+const emit = defineEmits(["update:value"]);
+
 const editor = ref();
 
 let editorInstance: monaco.editor.IStandaloneCodeEditor;
 
+watch(
+  () => props.value,
+  (v) => {
+    editorInstance.setValue(v);
+  },
+);
+
 onMounted(() => {
   editorInstance = monaco.editor.create(editor.value, {
     value: props.value,
-    // language: "json",
+    language: "json",
     readOnly: props.isReadOnly,
     automaticLayout: true,
     lineNumbers: props.showLineNumbers ? "on" : "off",
     folding: true,
   });
-  console.log("editorInstance", editorInstance);
+  // console.debug("editorInstance", editorInstance);
+
+  editorInstance.onDidChangeModelContent(() => {
+    console.debug("onDidChangeModelContent");
+    emit("update:value", editorInstance.getValue());
+  });
 });
 </script>
 
