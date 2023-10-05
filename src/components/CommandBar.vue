@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { defaultData, sessionData } from "~/components/live-data";
+import {
+  defaultData,
+  saveSessionData,
+  sessionData,
+} from "~/components/live-data";
 
 const currentShowingDialog = ref<null | "import" | "export">(null);
 
@@ -17,6 +21,10 @@ function handleLoadDefault() {
 
 function syncCurrentSessionData() {
   editorDataExport.value = JSON.stringify(sessionData.value, null, 2);
+}
+
+function saveLocal() {
+  saveSessionData(sessionData.value);
 }
 </script>
 
@@ -38,6 +46,9 @@ function syncCurrentSessionData() {
   </el-row>
 
   <el-card v-if="currentShowingDialog === 'export'" style="max-height: 50vh">
+    <el-button my="3" size="small" type="primary" @click="saveLocal"
+      >Save locally</el-button
+    >
     <editor-json :value="editorDataExport" :is-read-only="true"></editor-json>
   </el-card>
 

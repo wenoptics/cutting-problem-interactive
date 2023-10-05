@@ -20,17 +20,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     "vue/no-unused-vars": "warn",
     "vue/no-deprecated-slot-attribute": "warn",
-    "vue/max-attributes-per-line": [
-      "error",
-      {
-        singleline: {
-          max: 5,
-        },
-        multiline: {
-          max: 3,
-        },
-      },
-    ],
+    "vue/max-attributes-per-line": "off"
   },
   plugins: [
     "@typescript-eslint",

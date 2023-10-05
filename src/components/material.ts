@@ -9,7 +9,29 @@ import {
 class MaterialShape extends TargetShape {}
 
 class MaterialState {
-  constructor(public readonly material: MaterialShape) {}
+  constructor(
+    public readonly material: MaterialShape,
+    _assignedData: CuttingSequence[] = [],
+  ) {
+    this._assignedSequence = _assignedData;
+  }
+
+  public serialize(): object {
+    return /*JSON.stringify*/ {
+      material: this.material.serialize(),
+      assignedSequence: this._assignedSequence.map((target) =>
+        target.serialize(),
+      ),
+    };
+  }
+
+  public static deserialize(json: object): MaterialState {
+    const { material, assignedSequence } = /*JSON.parse*/ json;
+    return new MaterialState(
+      MaterialShape.deserialize(material),
+      assignedSequence.map((target: string) => TargetShape.deserialize(target)),
+    );
+  }
 
   public get id(): string {
     return this.material.id;

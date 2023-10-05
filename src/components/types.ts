@@ -37,6 +37,21 @@ class TargetShape {
       throw new Error(`Invalid end: ${this.rightEnd} cannot be right end`);
     }
   }
+
+  public serialize(): object {
+    const { id, leftEnd, rightEnd, length } = this;
+    return /*JSON.stringify*/ {
+      id,
+      leftEnd,
+      rightEnd,
+      length,
+    };
+  }
+
+  public static deserialize(json: object): TargetShape {
+    const { id, leftEnd, rightEnd, length } = /*JSON.parse*/ json;
+    return new TargetShape(id, leftEnd, rightEnd, length);
+  }
 }
 
 type CuttingSequence = TargetShape[];
