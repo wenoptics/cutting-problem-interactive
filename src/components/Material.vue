@@ -74,10 +74,9 @@ const marks = computed(() => cs2Marks(props.materialState)
 </script>
 
 <template>
-
-<!--  <el-row type="flex" class="row-bg">-->
-<!--    Material ID: {{ materialState.material.id }}-->
-<!--  </el-row>-->
+  <!--  <el-row type="flex" class="row-bg">-->
+  <!--    Material ID: {{ materialState.material.id }}-->
+  <!--  </el-row>-->
   <el-row type="flex" class="row-bg">
     Material length: {{ materialState.material.length }}
   </el-row>
@@ -91,15 +90,17 @@ const marks = computed(() => cs2Marks(props.materialState)
     Current waste: {{ materialState.currentWasteFromAdapterCuts }}
   </el-row>
 
-  <div class="block" :style="{
-    width: px_per_length * materialState.material.length + 'px'
-  }">
+  <div
+    class="block" :style="{
+      width: px_per_length * materialState.material.length + 'px'
+    }"
+  >
     <el-slider
-        v-model="materialState.assignedLength"
-        :show-input-controls="false"
-        :marks="marks"
-        :max="materialState.material.length"
-    ></el-slider>
+      v-model="materialState.assignedLength"
+      :show-input-controls="false"
+      :marks="marks"
+      :max="materialState.material.length"
+    />
   </div>
 </template>
 <style scoped>

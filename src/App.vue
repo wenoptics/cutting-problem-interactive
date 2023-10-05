@@ -2,10 +2,10 @@
   <el-config-provider namespace="ep">
     <BaseHeader />
     <div class="flex main-container">
-<!--      <BaseSide />-->
+      <!--      <BaseSide />-->
       <div w="full" py="4" px="6">
-<!--        <Logos my="4" />-->
-        <Visualizer></Visualizer>
+        <!--        <Logos my="4" />-->
+        <Visualizer />
       </div>
     </div>
   </el-config-provider>

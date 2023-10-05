@@ -92,87 +92,82 @@ function handleRemoveLast (materialId: string) {
   <el-card v-for="(ms, materialId) in currentSolutions" :key="materialId" my="6">
     <div slot="header" class="clearfix">
       <span>Material ID: {{ materialId }}</span>
-<!--      <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>-->
+      <!--      <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>-->
     </div>
 
     <div>
-    <Material :material-state="ms"/>
+      <Material :material-state="ms" />
 
-    <el-row pt="8" align="middle">
-      <el-tag
-          size="small"
+      <el-row pt="8" align="middle">
+        <el-tag
           v-for="(c, idx) in ms.assignedSequence"
           :key="c.id"
+          size="small"
           :type="isAdapterCut(c.id) ? 'success' : 'info'"
-      >
-        {{ c.leftEnd }}
-        <el-divider direction="vertical"></el-divider>
-        {{ c.id }} ({{ c.length }})
-        <el-divider direction="vertical"></el-divider>
-        {{ c.rightEnd }}
-      </el-tag>
+        >
+          {{ c.leftEnd }}
+          <el-divider direction="vertical" />
+          {{ c.id }} ({{ c.length }})
+          <el-divider direction="vertical" />
+          {{ c.rightEnd }}
+        </el-tag>
 
-      <el-button
+        <el-button
           v-if="ms.assignedSequence.length !== 0"
           type="warning"
-          @click="handleRemoveLast(materialId)"
           size="small"
-      >Remove last</el-button>
-    </el-row>
+          @click="handleRemoveLast(materialId)"
+        >
+          Remove last
+        </el-button>
+      </el-row>
 
-    <el-collapse>
-      <el-collapse-item title="Edit" name="1">
+      <el-collapse>
+        <el-collapse-item title="Edit" name="1">
+          <el-card class="box-card" mr="6">
+            <div>
+              <el-row type="flex" class="row-bg">
+                Constrain conditions:
+              </el-row>
+              <el-row type="flex" class="row-bg">
+                <el-button plain type="warning" size="small" disabled>
+                  Length must be &lt= remaining length ({{ ms.remainingLength }})
+                </el-button>
+                <el-button plain type="danger" size="small" disabled>
+                  Left end == {{ ms.nextAllowedLeftEnd }}
+                </el-button>
+              </el-row>
 
-        <el-card class="box-card" mr="6">
-          <div>
-            <el-row type="flex" class="row-bg">
-              Constrain conditions:
-            </el-row>
-            <el-row type="flex" class="row-bg">
-              <el-button plain type="warning" size="small" disabled>
-                Length must be &lt= remaining length ({{ ms.remainingLength }})
-              </el-button>
-              <el-button plain type="danger" size="small" disabled>
-                Left end == {{ ms.nextAllowedLeftEnd }}
-              </el-button>
-            </el-row>
-
-            <TargetPool
+              <TargetPool
                 :data="prefillCuttingTargetsPool"
                 :used="usedCuttingTargets"
                 :max-length="ms.remainingLength"
                 :allowed-left-ends="[ms.nextAllowedLeftEnd]"
                 @select="handleAddTo(materialId, $event)"
-            />
+              />
 
-            <el-divider></el-divider>
-            <el-row type="flex" class="row-bg">
-              Adapter cuts:
-              <p class="el-text--small">Use only when necessary, since it will increase material wastes and the number of cuts</p>
-            </el-row>
-            <TargetPool
+              <el-divider />
+              <el-row type="flex" class="row-bg">
+                Adapter cuts:
+                <p class="el-text--small">
+                  Use only when necessary, since it will increase material wastes and the number of cuts
+                </p>
+              </el-row>
+              <TargetPool
                 :data="adapterCutMap"
                 :used="[]"
                 :max-length="ms.remainingLength"
                 :allowed-left-ends="[ms.nextAllowedLeftEnd]"
                 @select="handleAddTo(materialId, $event)"
-            ></TargetPool>
+              />
+            </div>
+          </el-card>
 
-          </div>
-        </el-card>
-
-        <el-col px="4" class="">
-
-
-        </el-col>
-
-      </el-collapse-item>
-    </el-collapse>
-
-  </div>
-
+          <el-col px="4" class="" />
+        </el-collapse-item>
+      </el-collapse>
+    </div>
   </el-card>
-
 </template>
 <style scoped>
 

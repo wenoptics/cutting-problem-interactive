@@ -22,7 +22,7 @@ class MyClass {
 </script>
 
 <template>
-  <div id="editor" ref="editor"></div>
+  <div id="editor" ref="editor" />
 </template>
 
 <style scoped>

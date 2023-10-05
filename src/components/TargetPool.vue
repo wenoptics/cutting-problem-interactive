@@ -72,32 +72,32 @@ function handleSelect (shape: TargetShape) {
 </script>
 
 <template>
-
   <el-row>
     Available ({{ numAvailable }})
   </el-row>
 
   <el-row :gutter="2" type="flex" justify="start">
-    <el-col><div class="grid-content">
-      <el-button
-          size="small"
+    <el-col>
+      <div class="grid-content">
+        <el-button
           v-for="shape in Object.values(props.data)"
           :key="shape.id"
+          size="small"
           :disabled="getDisabled(shape)"
           :type="getColor(shape)"
           :title="getTooltip(shape)"
           plain
           @click="handleSelect(shape)"
-      >
-        <span>{{ shape.leftEnd }}</span>
-        <el-divider direction="vertical"></el-divider>
-        {{ shape.id }} ({{ shape.length }})
-        <el-divider direction="vertical"></el-divider>
-        <span>{{ shape.rightEnd }}</span>
-      </el-button>
-    </div></el-col>
+        >
+          <span>{{ shape.leftEnd }}</span>
+          <el-divider direction="vertical" />
+          {{ shape.id }} ({{ shape.length }})
+          <el-divider direction="vertical" />
+          <span>{{ shape.rightEnd }}</span>
+        </el-button>
+      </div>
+    </el-col>
   </el-row>
-
 </template>
 
 <style scoped>
