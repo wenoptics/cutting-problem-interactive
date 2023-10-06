@@ -1,23 +1,65 @@
 {
-  "A1": {
+  "H0": {
+    "length": 95
+  },
+  "H1": {
+    "length": 95
+  },
+  "J0": {
     "length": 98
   },
-  "A2": {
-    "length": 92
+  "D0": {
+    "length": 110
   },
-  "A3": {
-    "length": 104
+  "C0": {
+    "length": 100
   },
-  "A4": {
-    "length": 90
+  "B0": {
+    "length": 98
   },
-  "A5": {
-    "length": 92
+  "A71": {
+    "length": 97
   },
-  "A6": {
-    "length": 92
+  "A72": {
+    "length": 97
   },
-  "A7": {
-    "length": 90
+  "A73": {
+    "length": 97
+  },
+  "A74": {
+    "length": 97
+  },
+  "B81": {
+    "length": 96
+  },
+  "B82": {
+    "length": 96
+  },
+  "B83": {
+    "length": 96
+  },
+  "B84": {
+    "length": 96
+  },
+  "B85": {
+    "length": 96
+  },
+  "B86": {
+    "length": 96
+  },
+  "B87": {
+    "length": 96
+  },
+  "B88": {
+    "length": 96
+  },
+  "G0": {
+    "length": 94
+  },
+  "F0": {
+    "length": 93
+  },
+  "E0": {
+    "length": 76
   }
 }

@@ -63,7 +63,7 @@ type TargetShapePool = Record<string, TargetShape>;
  * The width of the material in physical units.
  *    This can be used to calculate e.g. the length of the adapter cuts
  */
-const MATERIAL_WIDTH_PHYS = 1.8;
+const MATERIAL_WIDTH_PHYS = 0.75;
 
 export {
   EndType,
