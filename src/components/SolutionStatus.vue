@@ -49,6 +49,27 @@ const totalWaste = computed(() => {
   }
   return total;
 });
+
+const unusedTargets = computed(() => {
+  const used = new Set(props.solvedCuttingTargets);
+  return Object.keys(props.cuttingTargetMap).filter((id) => !used.has(id));
+});
+
+const minUnusedTargetLength = computed(() => {
+  return Object.values(props.cuttingTargetMap)
+    .filter((ct) => unusedTargets.value.includes(ct.id))
+    .reduce((acc, cur) => Math.min(acc, cur.length), Infinity);
+});
+
+// This is the waste from on the material that can not be used by any cutting target
+const totalWasteOnUseless = computed(() => {
+  return Object.values(props.solution!.materialStates)
+    .filter((ms) => {
+      // If the material is not used by any available cutting targets, then it is useless
+      return ms.remainingLength < minUnusedTargetLength.value;
+    })
+    .reduce((acc, cur) => acc + cur.remainingLength, 0);
+});
 </script>
 
 <template>
@@ -77,7 +98,8 @@ const totalWaste = computed(() => {
     >
     <el-row>
       <span class="label">Total Waste:</span>
-      {{ totalWaste }}</el-row
+      {{ totalWaste }} + {{ totalWasteOnUseless }} =
+      {{ totalWaste + totalWasteOnUseless }}</el-row
     >
   </el-card>
 </template>

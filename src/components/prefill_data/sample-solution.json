@@ -1,0 +1,671 @@
+{
+  "targetPool": {
+    "H2": {
+      "id": "H2",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 4.25
+    },
+    "L7": {
+      "id": "L7",
+      "leftEnd": 4,
+      "rightEnd": 3,
+      "length": 5.25
+    },
+    "F5": {
+      "id": "F5",
+      "leftEnd": 2,
+      "rightEnd": 1,
+      "length": 6.5
+    },
+    "D4": {
+      "id": "D4",
+      "leftEnd": 2,
+      "rightEnd": 3,
+      "length": 6.875
+    },
+    "H3": {
+      "id": "H3",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 6.875
+    },
+    "L2": {
+      "id": "L2",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 7.5
+    },
+    "F8": {
+      "id": "F8",
+      "leftEnd": 0,
+      "rightEnd": 1,
+      "length": 8.75
+    },
+    "L6": {
+      "id": "L6",
+      "leftEnd": 2,
+      "rightEnd": 0,
+      "length": 11.5
+    },
+    "D3": {
+      "id": "D3",
+      "leftEnd": 2,
+      "rightEnd": 0,
+      "length": 19.875
+    },
+    "H1": {
+      "id": "H1",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 22.25
+    },
+    "L5": {
+      "id": "L5",
+      "leftEnd": 0,
+      "rightEnd": 1,
+      "length": 22.5
+    },
+    "H5": {
+      "id": "H5",
+      "leftEnd": 0,
+      "rightEnd": 3,
+      "length": 25.125
+    },
+    "D7": {
+      "id": "D7",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 25.125
+    },
+    "F1": {
+      "id": "F1",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 25.875
+    },
+    "L3": {
+      "id": "L3",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 26.5
+    },
+    "B3": {
+      "id": "B3",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 27.5
+    },
+    "F6": {
+      "id": "F6",
+      "leftEnd": 4,
+      "rightEnd": 3,
+      "length": 27.875
+    },
+    "D1": {
+      "id": "D1",
+      "leftEnd": 2,
+      "rightEnd": 0,
+      "length": 30.5
+    },
+    "F7": {
+      "id": "F7",
+      "leftEnd": 0,
+      "rightEnd": 1,
+      "length": 33.125
+    },
+    "D2": {
+      "id": "D2",
+      "leftEnd": 4,
+      "rightEnd": 3,
+      "length": 35.25
+    },
+    "F2": {
+      "id": "F2",
+      "leftEnd": 0,
+      "rightEnd": 1,
+      "length": 35.25
+    },
+    "H4": {
+      "id": "H4",
+      "leftEnd": 2,
+      "rightEnd": 0,
+      "length": 49.25
+    },
+    "F4": {
+      "id": "F4",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 50.375
+    },
+    "B4": {
+      "id": "B4",
+      "leftEnd": 0,
+      "rightEnd": 1,
+      "length": 51
+    },
+    "B5": {
+      "id": "B5",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 56.375
+    },
+    "F3": {
+      "id": "F3",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 64.25
+    },
+    "D5": {
+      "id": "D5",
+      "leftEnd": 4,
+      "rightEnd": 3,
+      "length": 66.25
+    },
+    "L1": {
+      "id": "L1",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 82.125
+    },
+    "B1": {
+      "id": "B1",
+      "leftEnd": 4,
+      "rightEnd": 0,
+      "length": 89.625
+    },
+    "D8": {
+      "id": "D8",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 89.75
+    },
+    "D6": {
+      "id": "D6",
+      "leftEnd": 0,
+      "rightEnd": 1,
+      "length": 94.75
+    },
+    "B2": {
+      "id": "B2",
+      "leftEnd": 0,
+      "rightEnd": 0,
+      "length": 112.25
+    },
+    "B6": {
+      "id": "B6",
+      "leftEnd": 4,
+      "rightEnd": 1,
+      "length": 118.25
+    }
+  },
+  "solution": {
+    "materialStates": {
+      "H0": {
+        "material": {
+          "id": "H0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 95
+        },
+        "assignedSequence": []
+      },
+      "H1": {
+        "material": {
+          "id": "H1",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 95
+        },
+        "assignedSequence": []
+      },
+      "J0": {
+        "material": {
+          "id": "J0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 98
+        },
+        "assignedSequence": [
+          {
+            "id": "F7",
+            "leftEnd": 0,
+            "rightEnd": 1,
+            "length": 33.125
+          },
+          {
+            "id": "AD2_3",
+            "leftEnd": 2,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "F3",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 64.25
+          }
+        ]
+      },
+      "D0": {
+        "material": {
+          "id": "D0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 110
+        },
+        "assignedSequence": [
+          {
+            "id": "L5",
+            "leftEnd": 0,
+            "rightEnd": 1,
+            "length": 22.5
+          },
+          {
+            "id": "D1",
+            "leftEnd": 2,
+            "rightEnd": 0,
+            "length": 30.5
+          },
+          {
+            "id": "B4",
+            "leftEnd": 0,
+            "rightEnd": 1,
+            "length": 51
+          },
+          {
+            "id": "AD2_3",
+            "leftEnd": 2,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "L7",
+            "leftEnd": 4,
+            "rightEnd": 3,
+            "length": 5.25
+          }
+        ]
+      },
+      "C0": {
+        "material": {
+          "id": "C0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 100
+        },
+        "assignedSequence": [
+          {
+            "id": "D6",
+            "leftEnd": 0,
+            "rightEnd": 1,
+            "length": 94.75
+          },
+          {
+            "id": "AD2_3",
+            "leftEnd": 2,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "H2",
+            "leftEnd": 4,
+            "rightEnd": 1,
+            "length": 4.25
+          }
+        ]
+      },
+      "B0": {
+        "material": {
+          "id": "B0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 98
+        },
+        "assignedSequence": []
+      },
+      "A71": {
+        "material": {
+          "id": "A71",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 97
+        },
+        "assignedSequence": [
+          {
+            "id": "H5",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 25.125
+          },
+          {
+            "id": "H1",
+            "leftEnd": 4,
+            "rightEnd": 1,
+            "length": 22.25
+          },
+          {
+            "id": "F5",
+            "leftEnd": 2,
+            "rightEnd": 1,
+            "length": 6.5
+          },
+          {
+            "id": "D4",
+            "leftEnd": 2,
+            "rightEnd": 3,
+            "length": 6.875
+          },
+          {
+            "id": "L2",
+            "leftEnd": 4,
+            "rightEnd": 1,
+            "length": 7.5
+          },
+          {
+            "id": "D3",
+            "leftEnd": 2,
+            "rightEnd": 0,
+            "length": 19.875
+          },
+          {
+            "id": "F8",
+            "leftEnd": 0,
+            "rightEnd": 1,
+            "length": 8.75
+          }
+        ]
+      },
+      "A72": {
+        "material": {
+          "id": "A72",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 97
+        },
+        "assignedSequence": []
+      },
+      "A73": {
+        "material": {
+          "id": "A73",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 97
+        },
+        "assignedSequence": []
+      },
+      "A74": {
+        "material": {
+          "id": "A74",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 97
+        },
+        "assignedSequence": []
+      },
+      "B81": {
+        "material": {
+          "id": "B81",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": []
+      },
+      "B82": {
+        "material": {
+          "id": "B82",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": []
+      },
+      "B83": {
+        "material": {
+          "id": "B83",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": []
+      },
+      "B84": {
+        "material": {
+          "id": "B84",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "F6",
+            "leftEnd": 4,
+            "rightEnd": 3,
+            "length": 27.875
+          },
+          {
+            "id": "F1",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 25.875
+          },
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "L3",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 26.5
+          }
+        ]
+      },
+      "B85": {
+        "material": {
+          "id": "B85",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "L1",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 82.125
+          }
+        ]
+      },
+      "B86": {
+        "material": {
+          "id": "B86",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "B1",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 89.625
+          }
+        ]
+      },
+      "B87": {
+        "material": {
+          "id": "B87",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "D8",
+            "leftEnd": 4,
+            "rightEnd": 1,
+            "length": 89.75
+          }
+        ]
+      },
+      "B88": {
+        "material": {
+          "id": "B88",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 96
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "B5",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 56.375
+          },
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "D2",
+            "leftEnd": 4,
+            "rightEnd": 3,
+            "length": 35.25
+          }
+        ]
+      },
+      "G0": {
+        "material": {
+          "id": "G0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 94
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "D5",
+            "leftEnd": 4,
+            "rightEnd": 3,
+            "length": 66.25
+          },
+          {
+            "id": "B3",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 27.5
+          }
+        ]
+      },
+      "F0": {
+        "material": {
+          "id": "F0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 93
+        },
+        "assignedSequence": [
+          {
+            "id": "F2",
+            "leftEnd": 0,
+            "rightEnd": 1,
+            "length": 35.25
+          },
+          {
+            "id": "H4",
+            "leftEnd": 2,
+            "rightEnd": 0,
+            "length": 49.25
+          },
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "H3",
+            "leftEnd": 4,
+            "rightEnd": 1,
+            "length": 6.875
+          }
+        ]
+      },
+      "E0": {
+        "material": {
+          "id": "E0",
+          "leftEnd": 0,
+          "rightEnd": 0,
+          "length": 76
+        },
+        "assignedSequence": [
+          {
+            "id": "AD0_3",
+            "leftEnd": 0,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "F4",
+            "leftEnd": 4,
+            "rightEnd": 1,
+            "length": 50.375
+          },
+          {
+            "id": "AD2_3",
+            "leftEnd": 2,
+            "rightEnd": 3,
+            "length": 0
+          },
+          {
+            "id": "D7",
+            "leftEnd": 4,
+            "rightEnd": 0,
+            "length": 25.125
+          }
+        ]
+      }
+    }
+  }
+}
