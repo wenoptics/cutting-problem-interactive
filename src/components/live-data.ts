@@ -27,8 +27,8 @@ function serSessionData(d: SessionData) {
     2,
   );
 }
-function deserSessionData(s: string) {
-  const objData = JSON.parse(s);
+function deserSessionData(s: string | object) {
+  const objData = typeof s === 'string' ? JSON.parse(s) : s;
   return {
     targetPool: mapValues(objData.targetPool, (target: object) =>
       TargetShape.deserialize(target),

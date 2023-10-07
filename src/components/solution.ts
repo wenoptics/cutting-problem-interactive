@@ -47,7 +47,8 @@ class Solution {
         ]),
       );
     }
-    this.materialStates = materialStateMap;
+    // At this point, materialStateMap is guaranteed to be defined
+    this.materialStates = materialStateMap!;
   }
 
   public materialStates: Record<string, MaterialState> = {};
